@@ -1,0 +1,179 @@
+.main-content {
+  /* background-color: chocolate; */
+  min-height: calc(100vh - 50px);
+  max-width: 100vw;
+}
+
+.poster {
+  width: 90vw;
+  margin: 4rem auto;
+  position: relative;
+  text-align: right;
+  cursor: pointer;
+}
+
+.poster img {
+  max-width: 100%;
+  margin: auto;
+}
+
+.poster .quote {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  color: white;
+  font-size: var(--header-2);
+  width: 20%;
+}
+
+.poster .title {
+  font-style: italic;
+  font-size: var(--header-3);
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
+}
+
+.brand svg {
+  width: 30rem;
+  margin-left: auto;
+}
+
+.tagline {
+  font-size: var(--header-1);
+  font-size: 5rem;
+  font-weight: 700;
+  flex-basis: 50%;
+  width: fit-content;
+}
+
+.category {
+  width: 90%;
+  margin: 10rem auto;
+  height: 40rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-20);
+}
+
+.category-shoe,
+.category-jersey {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.category-jersey {
+  transition: all 0.5s;
+}
+
+.category-shoe {
+  transition: all 0.5s;
+}
+
+.category-shoe-link,
+.category-jersey-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-shoe:hover,
+.category-jersey:hover {
+  transform: scale(1.5);
+}
+
+.category-title {
+  position: absolute;
+  font-size: var(--header-1);
+  font-weight: 900;
+  color: black;
+}
+
+.category-shoe-title,
+.category-jersey-title {
+  bottom: 4rem;
+  left: 1rem;
+}
+
+.category-kobe-title {
+  bottom: 2rem;
+  color: white;
+  left: 1rem;
+}
+
+.hero-img {
+  width: 50rem;
+  height: 50rem;
+}
+
+.home-svg {
+  font-size: medium;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  text-indent: 0;
+  text-align: start;
+  text-decoration: none;
+  line-height: normal;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  direction: ltr;
+  writing-mode: lr-tb;
+  text-anchor: start;
+  opacity: 1;
+  fill: var(--primary-color);
+  fill-opacity: 1;
+  stroke: none;
+  stroke-width: 4;
+  marker: none;
+  visibility: visible;
+  display: inline;
+  overflow: visible;
+  enable-background: accumulate;
+  font-family: Sans;
+  -inkscape-font-specification: Sans;
+}
+
+@media (max-width: 1400px) {
+  .poster .quote {
+    font-size: var(--header-3);
+  }
+}
+
+@media (max-width: 1024px) {
+  .category-title {
+    font-size: var(--header-2);
+    font-weight: 900;
+  }
+}
+
+@media (max-width: 770px) {
+  /* .poster .quote {
+    font-size: var(--header-2);
+  } */
+}
+
+@media (max-width: 660px) {
+  .category-title {
+    font-size: var(--header-3);
+    font-weight: 900;
+  }
+  /* 
+  .poster .quote {
+    font-size: var(--header-2);
+  } */
+}
+@media (max-width: 440px) {
+  .poster .quote {
+    font-size: var(--body-2);
+  }
+}
