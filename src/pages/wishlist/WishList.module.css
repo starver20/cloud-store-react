@@ -1,0 +1,19 @@
+.main-content {
+  max-height: calc(100vh - 50px);
+  width: 80%;
+  margin: auto;
+}
+
+/* Wishlist Product Listing */
+
+.main-content main {
+  padding: 5rem 2rem;
+}
+
+.prod-listing {
+  display: grid;
+  gap: 2rem;
+  row-gap: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(35rem, 45rem));
+  place-content: center;
+}

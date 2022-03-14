@@ -1,0 +1,41 @@
+.filters {
+  padding: 2rem;
+}
+
+.filter-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: var(--primary-color);
+  margin-bottom: 5rem;
+}
+
+.filter-title {
+  font-size: var(--header-3);
+  font-weight: 700;
+}
+
+.filter-clear {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  font-size: var(--body-3);
+  cursor: pointer;
+}
+
+.filter-type {
+  margin-bottom: 5rem;
+  text-align: left;
+}
+
+.filter-type-title {
+  margin-bottom: 1rem;
+  font-size: var(--body-2);
+  font-weight: 400;
+}
+
+@media (max-width: 1200px) {
+  .filters {
+    display: none;
+  }
+}
