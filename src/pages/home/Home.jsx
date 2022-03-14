@@ -75,7 +75,9 @@ const Home = () => {
                 backgroundImage: `url(${shoeImg})`,
               }}
             ></div>
-            <p className={classes['category-shoe-title category-title']}>
+            <p
+              className={`${classes['category-shoe-title']} ${classes['category-title']}`}
+            >
               AIR JORDAN SERIES
             </p>
           </a>
