@@ -1,12 +1,13 @@
 import React from 'react';
 
 const ProductCard = ({
+  title,
   image,
-  name,
-  description,
+  itemDescription,
   price,
   wishlisted = false,
 }) => {
+  console.log(title, image);
   return (
     <>
       <div className="prod-card">
@@ -17,8 +18,8 @@ const ProductCard = ({
           }}
         ></div>
         <div className="prod-details">
-          <h4 className="prod-name">{name}</h4>
-          <p className="prod-info">{description}</p>
+          <h4 className="prod-name">{title}</h4>
+          <p className="prod-info">{itemDescription}</p>
           <p className="prod-price">₹{price}</p>
         </div>
         <button className="add-cart-btn">ADD TO CART</button>

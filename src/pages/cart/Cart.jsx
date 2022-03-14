@@ -1,11 +1,11 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import classes from './Cart.module.css';
-import img1 from '../../assets/celtics.jpeg';
-import img2 from '../../assets/lakers.jpeg';
-import img3 from '../../assets/76ers.jpeg';
-import img4 from '../../assets/clippers1.jpeg';
-import img5 from '../../assets/grizzlies.jpeg';
+import img1 from '../../assets/brooklyn-nets.jpeg';
+import img2 from '../../assets/bucks-icon.jpeg';
+import img3 from '../../assets/lakers-city.jpeg';
+import img4 from '../../assets/lakers-icon.jpeg';
+import img5 from '../../assets/nets-icon.jpeg';
 import CartCard from '../../components/card/CartCard';
 import CheckoutCard from '../../components/card/CheckoutCard';
 const Cart = () => {

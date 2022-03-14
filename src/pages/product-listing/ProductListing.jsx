@@ -2,14 +2,18 @@ import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import classes from './ProductListing.module.css';
-import img1 from '../../assets/celtics.jpeg';
-import img2 from '../../assets/lakers.jpeg';
-import img3 from '../../assets/76ers.jpeg';
-import img4 from '../../assets/clippers1.jpeg';
-import img5 from '../../assets/grizzlies.jpeg';
+import img1 from '../../assets/bucks-icon.jpeg';
+import img2 from '../../assets/bucks-icon.jpeg';
+import img3 from '../../assets/bucks-icon.jpeg';
+import img4 from '../../assets/bucks-icon.jpeg';
+import img5 from '../../assets/bucks-icon.jpeg';
 import ProductCard from '../../components/card/ProductCard';
+import { useProducts } from '../../context/product-listing/product-context';
 
 const ProductListing = () => {
+  const productsState = useProducts();
+  console.log(productsState);
+
   return (
     <div>
       <Navbar />
@@ -33,7 +37,13 @@ const ProductListing = () => {
             </svg>
           </div>
           <div className={classes['prod-listing']}>
-            <ProductCard
+            {products.length > 0 ? (
+              products.map((product) => <ProductCard product />)
+            ) : (
+              <span>Nothing here</span>
+            )}
+
+            {/* <ProductCard
               image={img1}
               name="Boston Celtics City Edition"
               description="Nike Driddddd-FIT City Edition"
@@ -74,7 +84,7 @@ const ProductListing = () => {
               description="Nike Driddddd-FIT City Edition"
               price="6,495"
               wishlisted={false}
-            />
+            /> */}
           </div>
         </main>
       </section>

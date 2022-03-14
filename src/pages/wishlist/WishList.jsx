@@ -2,10 +2,10 @@ import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import '../../App.css';
 import classes from './WishList.module.css';
-import background1 from '../../assets/76ers.jpeg';
-import background2 from '../../assets/celtics.jpeg';
-import background3 from '../../assets/lakers.jpeg';
-import background4 from '../../assets/clippers1.jpeg';
+import background1 from '../../assets/bucks-icon.jpeg';
+import background2 from '../../assets/bucks-icon.jpeg';
+import background3 from '../../assets/bucks-icon.jpeg';
+import background4 from '../../assets/bucks-icon.jpeg';
 import ProductCard from '../../components/card/ProductCard';
 
 const WishList = () => {
