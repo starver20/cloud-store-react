@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const useHttp = (url, method) => {
+const useHttp = (url, method, headers = {}) => {
   const [data, setData] = useState({});
 
   const networkCall = async () => {
     let { data } = await axios({
       method,
       url,
+      headers,
     });
 
     setData(data);
@@ -17,7 +18,6 @@ const useHttp = (url, method) => {
     networkCall();
   }, []);
 
-  console.log(data);
   return data;
 };
 

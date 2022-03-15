@@ -1,70 +1,72 @@
-import axios from 'axios';
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from 'react';
-import useHttp from '../../hooks/useHttp';
+import { createContext, useContext, useReducer } from 'react';
 
 const initialState = {
-  products: [{}],
-  priceSort: false,
+  priceSort: null,
   inStock: false,
-  fastDelivery: false,
-  priceRange: 2000,
+  fastDelivery: null,
+  priceRange: 5000,
   productsDispatch: () => {},
 };
 
 const ProductsContext = createContext(initialState);
-
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'UPDATE':
-      {
-        return {
-          ...state,
-          products: action.payload.products,
-        };
-      }
-      break;
+    case 'PRICE_SORT': {
+      return {
+        ...state,
+        priceSort: action.payload.priceSort,
+      };
+    }
+
+    case 'AVAILABILITY_TOGGLE': {
+      return {
+        ...state,
+        inStock: action.payload.inStock,
+      };
+    }
+
+    case 'DELIVERY_TYPE': {
+      return {
+        ...state,
+        fastDelivery: action.payload.fastDelivery,
+      };
+    }
+
+    case 'PRICE_RANGE': {
+      console.log(action.payload.priceRange);
+      return {
+        ...state,
+        priceRange: action.payload.priceRange,
+      };
+    }
+
+    case 'CLEAR': {
+      return {
+        ...state,
+        priceSort: null,
+        inStock: null,
+        fastDelivery: null,
+        priceRange: 5000,
+      };
+    }
 
     default:
-      break;
+      return state;
   }
 };
-
 const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
+  const [state, productsDispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    axios.get('/api/products').then((res) => {
-      setProducts(res.data.products);
-    });
-  }, []);
-
-  const [productsState, productsDispatch] = useReducer(reducer, {
-    products: products,
-  });
-
-  console.log(products);
-
-  // useEffect(() => {
-  //   productsDispatch({ type: 'UPDATE', payload: { products } });
-  // }, [products]);
-
-  // const value = {
-  //   products: productsState.products,
-  //   priceSort: productsState.priceSort,
-  //   priceRange: productsState.priceRange,
-  //   inStock: productsState.inStock,
-  //   fastDelivery: productsState.fastDelivery,
-  //   productsDispatch,
-  // };
+  const value = {
+    priceSort: state.priceSort,
+    priceRange: state.priceRange,
+    inStock: state.inStock,
+    fastDelivery: state.fastDelivery,
+    productsDispatch,
+  };
 
   return (
-    <ProductsContext.Provider value={{ productsState }}>
+    <ProductsContext.Provider value={value}>
       {children}
     </ProductsContext.Provider>
   );

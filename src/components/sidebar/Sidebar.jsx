@@ -1,13 +1,29 @@
 import React from 'react';
 import classes from './Sidebar.module.css';
+import { useProducts } from '../../context/product-listing/product-context';
 
 const Sidebar = () => {
+  const { priceSort, productsDispatch } = useProducts();
+
+  const priceSortChangeHandler = (e) => {
+    productsDispatch({
+      type: 'PRICE_SORT',
+      payload: { priceSort: e.target.value },
+    });
+  };
+
+  const onClearClicked = () => {
+    productsDispatch({ type: 'CLEAR' });
+  };
+
   return (
     <>
       <div className={classes['filters']}>
         <div className={classes['filter-header']}>
           <h1 className={classes['filter-title']}>Filters</h1>
-          <button className={classes['filter-clear']}>Clear</button>
+          <button onClick={onClearClicked} className={classes['filter-clear']}>
+            Clear
+          </button>
         </div>
         <div className={classes['filter-type']}>
           <h2 className={classes['filter-type-title']}>Ratings</h2>
@@ -31,12 +47,26 @@ const Sidebar = () => {
         <div className={classes['filter-type']}>
           <h2 className={classes['filter-type-title']}>Sort by price</h2>
           <div className="inp-container">
-            <input type="radio" name="price" id="price" checked />
-            <label for="">Price low to high</label>
+            <input
+              onChange={priceSortChangeHandler}
+              type="radio"
+              name="price"
+              id="LOW_TO_HIGH"
+              value="LOW_TO_HIGH"
+              checked={priceSort === 'LOW_TO_HIGH'}
+            />
+            <label htmlFor="LOW_TO_HIGH">Price low to high</label>
           </div>
           <div className="inp-container">
-            <input type="radio" name="price" id="price" />
-            <label for="">Price high to low</label>
+            <input
+              onChange={priceSortChangeHandler}
+              type="radio"
+              name="price"
+              id="HIGH_TO_LOW"
+              value="HIGH_TO_LOW"
+              checked={priceSort === 'HIGH_TO_LOW'}
+            />
+            <label htmlFor="HIGH_TO_LOW">Price high to low</label>
           </div>
         </div>
         <div className={classes['filter-type']}>

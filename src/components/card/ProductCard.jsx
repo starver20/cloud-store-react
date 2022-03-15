@@ -3,11 +3,10 @@ import React from 'react';
 const ProductCard = ({
   title,
   image,
-  itemDescription,
+  itemDescription = '',
   price,
   wishlisted = false,
 }) => {
-  console.log(title, image);
   return (
     <>
       <div className="prod-card">
