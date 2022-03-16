@@ -28,8 +28,7 @@
 
 .prod-listing {
   display: grid;
-  gap: 2rem;
-  row-gap: 4rem;
+  gap: 4rem;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 45rem));
   place-content: center;
 }
