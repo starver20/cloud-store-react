@@ -1,10 +1,12 @@
 import React from 'react';
+// fallback image
+import { clippersCity } from '../../assets/index';
 
 const ProductCard = ({
-  image,
-  name,
-  description,
-  price,
+  title = 'Product Title',
+  image = clippersCity,
+  itemDescription = 'Product Description',
+  price = '1000',
   wishlisted = false,
 }) => {
   return (
@@ -17,8 +19,8 @@ const ProductCard = ({
           }}
         ></div>
         <div className="prod-details">
-          <h4 className="prod-name">{name}</h4>
-          <p className="prod-info">{description}</p>
+          <h4 className="prod-name">{title}</h4>
+          <p className="prod-info">{itemDescription}</p>
           <p className="prod-price">₹{price}</p>
         </div>
         <button className="add-cart-btn">ADD TO CART</button>

@@ -1,11 +1,12 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import classes from './Cart.module.css';
-import img1 from '../../assets/celtics.jpeg';
-import img2 from '../../assets/lakers.jpeg';
-import img3 from '../../assets/76ers.jpeg';
-import img4 from '../../assets/clippers1.jpeg';
-import img5 from '../../assets/grizzlies.jpeg';
+import {
+  clippersStatement,
+  netsStatement,
+  celticsCity,
+  philadelphiaCity,
+} from '../../assets';
 import CartCard from '../../components/card/CartCard';
 import CheckoutCard from '../../components/card/CheckoutCard';
 const Cart = () => {
@@ -23,7 +24,7 @@ const Cart = () => {
 
           <div className={classes['prod-listing']}>
             <CartCard
-              image={img1}
+              image={clippersStatement}
               name="Boston Celtics City Edition"
               description="Nike Dri-FIT City Edition"
               quantity="2"
@@ -31,7 +32,7 @@ const Cart = () => {
               wishlisted={true}
             />
             <CartCard
-              image={img2}
+              image={netsStatement}
               name="Boston Celtics City Edition"
               description="Nike Dri-FIT City Edition"
               quantity="2"
@@ -39,7 +40,7 @@ const Cart = () => {
               wishlisted={true}
             />
             <CartCard
-              image={img3}
+              image={celticsCity}
               name="Boston Celtics City Edition"
               description="Nike Dri-FIT City Edition"
               quantity="2"
@@ -47,7 +48,7 @@ const Cart = () => {
               wishlisted={true}
             />
             <CartCard
-              image={img4}
+              image={philadelphiaCity}
               name="Boston Celtics City Edition"
               description="Nike Dri-FIT City Edition"
               quantity="2"
@@ -55,7 +56,7 @@ const Cart = () => {
               wishlisted={true}
             />
             <CartCard
-              image={img5}
+              image={philadelphiaCity}
               name="Boston Celtics City Edition"
               description="Nike Dri-FIT City Edition"
               quantity="2"
@@ -63,7 +64,7 @@ const Cart = () => {
               wishlisted={true}
             />
             <CartCard
-              image={img1}
+              image={celticsCity}
               name="Boston Celtics City Edition"
               description="Nike Dri-FIT City Edition"
               quantity="2"
@@ -71,7 +72,7 @@ const Cart = () => {
               wishlisted={true}
             />
             <CartCard
-              image={img2}
+              image={netsStatement}
               name="Boston Celtics City Edition"
               description="Nike Dri-FIT City Edition"
               quantity="2"

@@ -1,21 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../components/navbar/Navbar';
-import Sidebar from '../../components/sidebar/Sidebar';
+import FilterSidebar from '../../components/sidebar/FilterSidebar';
 import classes from './ProductListing.module.css';
-import img1 from '../../assets/celtics.jpeg';
-import img2 from '../../assets/lakers.jpeg';
-import img3 from '../../assets/76ers.jpeg';
-import img4 from '../../assets/clippers1.jpeg';
-import img5 from '../../assets/grizzlies.jpeg';
 import ProductCard from '../../components/card/ProductCard';
+import { useProducts } from '../../context/product-listing/products-context';
+import useHttp from '../../hooks/useHttp';
 
 const ProductListing = () => {
+  const { inStock, fastDelivery, priceRange, priceSort } = useProducts();
+
+  // rename products to data, and assign empty array incase it is undefined
+  const { products: data = [] } = useHttp('/api/products', 'get');
+
+  const inStockFilter = (data) =>
+    data.filter((prod) => prod.inStock || inStock);
+
+  const fastDeliveryFilter = (data) =>
+    data.filter((prod) => (fastDelivery ? prod.fastDelivery : true));
+
+  const priceRangeFilter = (data) =>
+    data.filter((prod) =>
+      priceRange ? Number(prod.price) <= Number(priceRange) : true
+    );
+
+  const sortProds = (prods) => {
+    if (priceSort) {
+      if (priceSort === 'LOW_TO_HIGH') {
+        return prods.sort((a, b) => a.price - b.price);
+      } else if (priceSort === 'HIGH_TO_LOW') {
+        return prods.sort((a, b) => b.price - a.price);
+      }
+    }
+    return prods;
+  };
+
+  // used currying and reduce to apply the filters and sort
+
+  const filters =
+    (...filters) =>
+    (products) => {
+      const productstodisplay = filters.reduce(
+        (acc, cur) => cur(acc),
+        products
+      );
+      return productstodisplay;
+    };
+
+  const applyFilters = filters(
+    inStockFilter,
+    fastDeliveryFilter,
+    priceRangeFilter,
+    sortProds
+  );
+
+  const products = applyFilters(data);
+
   return (
     <div>
       <Navbar />
       <section className={classes['main-content']}>
         <aside>
-          <Sidebar />
+          <FilterSidebar />
         </aside>
         <main>
           <div className={classes['filter-toggle']}>
@@ -33,48 +78,11 @@ const ProductListing = () => {
             </svg>
           </div>
           <div className={classes['prod-listing']}>
-            <ProductCard
-              image={img1}
-              name="Boston Celtics City Edition"
-              description="Nike Driddddd-FIT City Edition"
-              price="6,495"
-              wishlisted={false}
-            />
-            <ProductCard
-              image={img2}
-              name="Boston Celtics City Edition"
-              description="Nike Driddddd-FIT City Edition"
-              price="6,495"
-              wishlisted={false}
-            />
-            <ProductCard
-              image={img3}
-              name="Boston Celtics City Edition"
-              description="Nike Driddddd-FIT City Edition"
-              price="6,495"
-              wishlisted={false}
-            />
-            <ProductCard
-              image={img4}
-              name="Boston Celtics City Edition"
-              description="Nike Driddddd-FIT City Edition"
-              price="6,495"
-              wishlisted={false}
-            />
-            <ProductCard
-              image={img5}
-              name="Boston Celtics City Edition"
-              description="Nike Driddddd-FIT City Edition"
-              price="6,495"
-              wishlisted={false}
-            />
-            <ProductCard
-              image={img1}
-              name="Boston Celtics City Edition"
-              description="Nike Driddddd-FIT City Edition"
-              price="6,495"
-              wishlisted={false}
-            />
+            {products.length > 0 ? (
+              products.map((product) => <ProductCard {...product} />)
+            ) : (
+              <span>Nothing here</span>
+            )}
           </div>
         </main>
       </section>

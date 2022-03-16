@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
 
 /**
  * Category Database can be added here.
@@ -8,20 +8,20 @@ import { v4 as uuid } from "uuid";
 export const categories = [
   {
     _id: uuid(),
-    categoryName: "fiction",
+    categoryName: 'Statement Edition',
     description:
-      "literature in the form of prose, especially novels, that describes imaginary events and people",
+      'Bold alternative colours and details distinguish the Statement Edition, a jersey that symbolises the collective strength, spirit and competitive mindset of the roster.',
   },
   {
     _id: uuid(),
-    categoryName: "non-fiction",
+    categoryName: 'City Edition',
     description:
-      "Non-fiction is writing that gives information or describes real events, rather than telling a story.",
+      'Every NBA franchise has a playlist of its greatest hits—a compilation of iconic moments from the past that tell the team definitive story.',
   },
   {
     _id: uuid(),
-    categoryName: "horror",
+    categoryName: 'Icon',
     description:
-      "Meant to cause discomfort and fear for both the character and readers, horror writers often make use of supernatural and paranormal elements in morbid stories that are sometimes a little too realistic.",
+      'Every team has an iconic identity, the true colours that have resonated with fans for generations.The Milwaukee Bucks Diamond Icon Edition Swingman Jersey commemorates the league milestone 75th anniversary season with faceted diamond-inspired logos and an updated jock tag.',
   },
 ];
