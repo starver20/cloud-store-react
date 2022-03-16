@@ -44,26 +44,26 @@ const ProductListing = () => {
     );
 
   // Sort function
-  const sortProds = (prods) => {
+  const sortProds = (products) => {
     if (priceSort) {
       if (priceSort === 'LOW_TO_HIGH') {
-        return prods.sort((a, b) => a.price - b.price);
+        return products.sort((a, b) => a.price - b.price);
       } else if (priceSort === 'HIGH_TO_LOW') {
-        return prods.sort((a, b) => b.price - a.price);
+        return products.sort((a, b) => b.price - a.price);
       }
     }
-    return prods;
+    return products;
   };
 
   // used currying and reduce to apply the filters and sort
   const filters =
     (...filters) =>
     (products) => {
-      const productstodisplay = filters.reduce(
+      const productsToDisplay = filters.reduce(
         (acc, cur) => cur(acc),
         products
       );
-      return productstodisplay;
+      return productsToDisplay;
     };
 
   const applyFilters = filters(
