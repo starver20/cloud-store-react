@@ -1,8 +1,8 @@
 import React from 'react';
-import classes from './Sidebar.module.css';
+import classes from './FilterSidebar.module.css';
 import { useProducts } from '../../context/product-listing/products-context';
 
-const Sidebar = () => {
+const FilterSidebar = () => {
   const { priceSort, productsDispatch } = useProducts();
 
   const priceSortChangeHandler = (e) => {
@@ -97,4 +97,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default FilterSidebar;

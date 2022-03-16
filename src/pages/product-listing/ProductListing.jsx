@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from '../../components/navbar/Navbar';
-import Sidebar from '../../components/sidebar/Sidebar';
+import FilterSidebar from '../../components/sidebar/FilterSidebar';
 import classes from './ProductListing.module.css';
 import ProductCard from '../../components/card/ProductCard';
 import { useProducts } from '../../context/product-listing/products-context';
@@ -60,7 +60,7 @@ const ProductListing = () => {
       <Navbar />
       <section className={classes['main-content']}>
         <aside>
-          <Sidebar />
+          <FilterSidebar />
         </aside>
         <main>
           <div className={classes['filter-toggle']}>
