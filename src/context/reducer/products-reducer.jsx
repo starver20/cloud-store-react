@@ -19,7 +19,7 @@ const productsReducer = (state, action) => {
 
       if (state.categoryName.includes(payloadCategory)) {
         const newCategoryNames = state.categoryName.filter(
-          (category) => category != payloadCategory
+          (category) => category !== payloadCategory
         );
         return {
           ...state,

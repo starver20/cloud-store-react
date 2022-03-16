@@ -137,33 +137,33 @@ const FilterSidebar = () => {
               onChange={categoryChangeHandler}
               type="checkbox"
               name="category"
-              id="Statement Edition"
+              id="statement-edition"
               value="Statement Edition"
               checked={categoryName.includes('Statement Edition')}
             />
-            <label htmlFor="Statement Edition">Statement Edition</label>
+            <label htmlFor="statement-edition">Statement Edition</label>
           </div>
           <div className="inp-container">
             <input
               onChange={categoryChangeHandler}
               type="checkbox"
               name="category"
-              id="City Edition"
+              id="city-edition"
               value="City Edition"
               checked={categoryName.includes('City Edition')}
             />
-            <label htmlFor="City Edition">City Edition</label>
+            <label htmlFor="city-edition">City Edition</label>
           </div>
           <div className="inp-container">
             <input
               onChange={categoryChangeHandler}
               type="checkbox"
               name="category"
-              id="Icon Edition"
+              id="icon-edition"
               value="Icon Edition"
               checked={categoryName.includes('Icon Edition')}
             />
-            <label htmlFor="Icon Edition">Icon Edition</label>
+            <label htmlFor="icon-edition">Icon Edition</label>
           </div>
         </div>
         <div className={classes['filter-type']}>
