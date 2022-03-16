@@ -7,11 +7,19 @@ import { useProducts } from '../../context/product-listing/products-context';
 import useHttp from '../../hooks/useHttp';
 
 const ProductListing = () => {
-  const { inStock, fastDelivery, priceRange, priceSort } = useProducts();
+  const {
+    inStock,
+    fastDelivery,
+    priceRange,
+    priceSort,
+    ratingRange,
+    categoryName,
+  } = useProducts();
 
   // rename products to data, and assign empty array incase it is undefined
-  const { products: data = [] } = useHttp('/api/products', 'get');
+  const { products: data = undefined } = useHttp('/api/products', 'get');
 
+  // Various filter functions
   const inStockFilter = (data) =>
     data.filter((prod) => prod.inStock || inStock);
 
@@ -23,6 +31,19 @@ const ProductListing = () => {
       priceRange ? Number(prod.price) <= Number(priceRange) : true
     );
 
+  const ratingRangeFilter = (data) =>
+    data.filter((prod) =>
+      ratingRange ? Number(prod.rating) >= Number(ratingRange) : true
+    );
+
+  const categoryFilter = (data) =>
+    data.filter((prod) =>
+      categoryName.length === 0
+        ? true
+        : categoryName.includes(prod.categoryName)
+    );
+
+  // Sort function
   const sortProds = (prods) => {
     if (priceSort) {
       if (priceSort === 'LOW_TO_HIGH') {
@@ -35,7 +56,6 @@ const ProductListing = () => {
   };
 
   // used currying and reduce to apply the filters and sort
-
   const filters =
     (...filters) =>
     (products) => {
@@ -50,10 +70,15 @@ const ProductListing = () => {
     inStockFilter,
     fastDeliveryFilter,
     priceRangeFilter,
+    ratingRangeFilter,
+    categoryFilter,
     sortProds
   );
 
-  const products = applyFilters(data);
+  let products = [];
+  if (data !== undefined) {
+    products = applyFilters(data);
+  }
 
   return (
     <div>
@@ -78,10 +103,15 @@ const ProductListing = () => {
             </svg>
           </div>
           <div className={classes['prod-listing']}>
-            {products.length > 0 ? (
+            {data === undefined ? (
+              <h1>Loading...</h1>
+            ) : products.length > 0 ? (
               products.map((product) => <ProductCard {...product} />)
             ) : (
-              <span>Nothing here</span>
+              <h1>
+                No products match the filters, try changing the filters to see
+                products.
+              </h1>
             )}
           </div>
         </main>

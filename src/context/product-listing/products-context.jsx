@@ -6,6 +6,8 @@ const initialState = {
   inStock: false,
   fastDelivery: null,
   priceRange: 5000,
+  ratingRange: 1,
+  categoryName: [],
   productsDispatch: () => {},
 };
 

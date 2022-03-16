@@ -7,6 +7,34 @@ const productsReducer = (state, action) => {
       };
     }
 
+    case 'RATING_RANGE': {
+      return {
+        ...state,
+        ratingRange: action.payload.ratingRange,
+      };
+    }
+
+    case 'CATEGORY_CHANGE': {
+      const payloadCategory = action.payload.categoryName;
+
+      if (state.categoryName.includes(payloadCategory)) {
+        const newCategoryNames = state.categoryName.filter(
+          (category) => category != payloadCategory
+        );
+        return {
+          ...state,
+          categoryName: newCategoryNames,
+        };
+      }
+
+      const newCategoryNames = [...state.categoryName];
+      newCategoryNames.push(payloadCategory);
+      return {
+        ...state,
+        categoryName: newCategoryNames,
+      };
+    }
+
     case 'AVAILABILITY_TOGGLE': {
       return {
         ...state,
@@ -22,7 +50,6 @@ const productsReducer = (state, action) => {
     }
 
     case 'PRICE_RANGE': {
-      console.log(action.payload.priceRange);
       return {
         ...state,
         priceRange: action.payload.priceRange,
@@ -36,6 +63,7 @@ const productsReducer = (state, action) => {
         inStock: null,
         fastDelivery: null,
         priceRange: 5000,
+        categoryName: [],
       };
     }
 
