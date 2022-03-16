@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { makeServer } from './server';
-import { ProductsProvider } from './context/product-listing/product-context';
+import { ProductsProvider } from './context/product-listing/products-context';
 
 // Call make Server
 makeServer();

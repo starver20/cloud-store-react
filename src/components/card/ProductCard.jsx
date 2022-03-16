@@ -1,10 +1,12 @@
 import React from 'react';
+// fallback image
+import { clippersCity } from '../../assets/index';
 
 const ProductCard = ({
-  title,
-  image,
-  itemDescription = '',
-  price,
+  title = 'Product Title',
+  image = clippersCity,
+  itemDescription = 'Product Description',
+  price = '1000',
   wishlisted = false,
 }) => {
   return (

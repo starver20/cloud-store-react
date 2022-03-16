@@ -3,7 +3,7 @@ import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import classes from './ProductListing.module.css';
 import ProductCard from '../../components/card/ProductCard';
-import { useProducts } from '../../context/product-listing/product-context';
+import { useProducts } from '../../context/product-listing/products-context';
 import useHttp from '../../hooks/useHttp';
 
 const ProductListing = () => {

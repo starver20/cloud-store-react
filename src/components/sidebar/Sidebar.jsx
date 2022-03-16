@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Sidebar.module.css';
-import { useProducts } from '../../context/product-listing/product-context';
+import { useProducts } from '../../context/product-listing/products-context';
 
 const Sidebar = () => {
   const { priceSort, productsDispatch } = useProducts();
