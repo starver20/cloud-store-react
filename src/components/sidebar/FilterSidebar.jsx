@@ -8,9 +8,9 @@ const FilterSidebar = () => {
     ratingRange,
     productsDispatch,
     categoryName,
-    inStock,
-    fastDelivery,
+    includeOutOfStock,
     priceRange,
+    fastDeliveryOnly,
   } = useProducts();
 
   const priceSortChangeHandler = (e) => {
@@ -42,6 +42,7 @@ const FilterSidebar = () => {
   };
 
   const deliveryTypeToggleHandler = (e) => {
+    console.log(e.target.checked);
     productsDispatch({
       type: 'DELIVERY_TYPE',
       payload: { fastDelivery: e.target.checked },
@@ -174,7 +175,7 @@ const FilterSidebar = () => {
               type="checkbox"
               name="inStock"
               id="inStock"
-              checked={inStock}
+              checked={includeOutOfStock}
             />
             <label htmlFor="inStock">Include out of stock</label>
           </div>
@@ -187,7 +188,7 @@ const FilterSidebar = () => {
               type="checkbox"
               name="delivery"
               id="delivery"
-              checked={fastDelivery}
+              checked={fastDeliveryOnly}
             />
             <label htmlFor="delivery">Fast delivery only</label>
           </div>

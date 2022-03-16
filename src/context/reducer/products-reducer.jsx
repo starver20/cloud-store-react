@@ -38,14 +38,15 @@ const productsReducer = (state, action) => {
     case 'AVAILABILITY_TOGGLE': {
       return {
         ...state,
-        inStock: action.payload.inStock,
+        includeOutOfStock: action.payload.inStock,
       };
     }
 
     case 'DELIVERY_TYPE': {
+      console.log(action.payload.fastDelivery);
       return {
         ...state,
-        fastDelivery: action.payload.fastDelivery,
+        fastDeliveryOnly: action.payload.fastDelivery,
       };
     }
 

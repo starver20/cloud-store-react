@@ -8,33 +8,37 @@ import useHttp from '../../hooks/useHttp';
 
 const ProductListing = () => {
   const {
-    inStock,
-    fastDelivery,
+    includeOutOfStock,
+    fastDeliveryOnly,
     priceRange,
     priceSort,
     ratingRange,
     categoryName,
   } = useProducts();
 
-  // rename products to data, and assign empty array incase it is undefined
+  // rename products to data, and assign undefined so that loading state can be shown
   const { products: data = undefined } = useHttp('/api/products', 'get');
 
   // Various filter functions
-  const inStockFilter = (data) =>
-    data.filter((prod) => prod.inStock || inStock);
+  const inStockFilter = (data) => {
+    if (!includeOutOfStock) {
+      return data.filter((prod) => prod.inStock);
+    }
+    return data;
+  };
 
-  const fastDeliveryFilter = (data) =>
-    data.filter((prod) => (fastDelivery ? prod.fastDelivery : true));
+  const fastDeliveryFilter = (data) => {
+    if (fastDeliveryOnly) {
+      return data.filter((prod) => prod.fastDelivery);
+    }
+    return data;
+  };
 
   const priceRangeFilter = (data) =>
-    data.filter((prod) =>
-      priceRange ? Number(prod.price) <= Number(priceRange) : true
-    );
+    data.filter((prod) => Number(prod.price) <= Number(priceRange));
 
   const ratingRangeFilter = (data) =>
-    data.filter((prod) =>
-      ratingRange ? Number(prod.rating) >= Number(ratingRange) : true
-    );
+    data.filter((prod) => Number(prod.rating) >= Number(ratingRange));
 
   const categoryFilter = (data) =>
     data.filter((prod) =>
