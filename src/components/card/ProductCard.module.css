@@ -1,0 +1,17 @@
+.prod-ratings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prod-ratings svg {
+  width: 3rem;
+}
+
+.prod-ratings span {
+  font-size: var(--body-1);
+}
+
+.card {
+  height: 72rem;
+}

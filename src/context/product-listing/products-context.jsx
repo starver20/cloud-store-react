@@ -3,9 +3,11 @@ import productsReducer from '../reducer/products-reducer';
 
 const initialState = {
   priceSort: null,
-  inStock: false,
-  fastDelivery: null,
+  includeOutOfStock: false,
+  fastDeliveryOnly: false,
   priceRange: 5000,
+  ratingRange: 1,
+  categoryName: [],
   productsDispatch: () => {},
 };
 

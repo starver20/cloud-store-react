@@ -1,4 +1,3 @@
-import clippersStatement from './paul-george-clippers.jpeg';
 import netsStatement from './kevin-durant-nets.jpeg';
 import celticsCity from './celtics-city.jpeg';
 import philadelphiaCity from './philadelphia-76ers.jpeg';
@@ -15,7 +14,6 @@ import netsIcon from './nets-icon.jpeg';
 import bucksIcon from './bucks-icon.jpeg';
 
 export {
-  clippersStatement,
   netsStatement,
   celticsCity,
   philadelphiaCity,

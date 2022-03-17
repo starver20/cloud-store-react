@@ -1,12 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import classes from './Cart.module.css';
-import {
-  clippersStatement,
-  netsStatement,
-  celticsCity,
-  philadelphiaCity,
-} from '../../assets';
+import { netsStatement, celticsCity, philadelphiaCity } from '../../assets';
 import CartCard from '../../components/card/CartCard';
 import CheckoutCard from '../../components/card/CheckoutCard';
 const Cart = () => {
@@ -24,7 +19,7 @@ const Cart = () => {
 
           <div className={classes['prod-listing']}>
             <CartCard
-              image={clippersStatement}
+              image={netsStatement}
               name="Boston Celtics City Edition"
               description="Nike Dri-FIT City Edition"
               quantity="2"

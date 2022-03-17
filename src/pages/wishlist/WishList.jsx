@@ -2,12 +2,7 @@ import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import '../../App.css';
 import classes from './WishList.module.css';
-import {
-  clippersStatement,
-  netsStatement,
-  celticsCity,
-  philadelphiaCity,
-} from '../../assets';
+import { netsStatement, celticsCity, philadelphiaCity } from '../../assets';
 import ProductCard from '../../components/card/ProductCard';
 
 const WishList = () => {
@@ -18,7 +13,7 @@ const WishList = () => {
         <main>
           <div className={classes['prod-listing']}>
             <ProductCard
-              image={clippersStatement}
+              image={netsStatement}
               name="Boston Celtics City Edition"
               description="Nike Driddddd-FIT City Edition"
               price="6,495"
