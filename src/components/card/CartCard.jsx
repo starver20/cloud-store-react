@@ -3,8 +3,8 @@ import classes from './CartCard.module.css';
 
 const CartCard = ({
   image,
-  name,
-  description,
+  title,
+  itemDescription,
   quantity,
   price,
   wishlisted,
@@ -17,8 +17,8 @@ const CartCard = ({
         </div>
         <div className={classes['prod-details']}>
           <div>
-            <h4 className={classes['prod-name']}>{name}</h4>
-            <p className={classes['prod-info']}>{description}</p>
+            <h4 className={classes['prod-name']}>{title}</h4>
+            <p className={classes['prod-info']}>{itemDescription}</p>
           </div>
           <div className={classes.quantity}>
             <button>-</button>

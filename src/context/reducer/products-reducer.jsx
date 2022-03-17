@@ -57,6 +57,29 @@ const productsReducer = (state, action) => {
       };
     }
 
+    case 'SET_INITIAL_DATA': {
+      console.log(action.payload.products);
+
+      return {
+        ...state,
+        products: [...action.payload.products],
+      };
+    }
+
+    case 'ADD/REMOVE_FROM_CART': {
+      const index = state.products.findIndex(
+        (product) => product.id === action.payload.id
+      );
+      let newProduct = { ...state.products[index] };
+      newProduct.addedToCart = !state.products[index].addedToCart;
+      let newProductsList = [...state.products];
+      newProductsList[index] = newProduct;
+      return {
+        ...state,
+        products: newProductsList,
+      };
+    }
+
     case 'CLEAR': {
       return {
         ...state,

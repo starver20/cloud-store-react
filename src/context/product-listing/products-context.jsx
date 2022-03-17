@@ -1,7 +1,9 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 import productsReducer from '../reducer/products-reducer';
+import useHttp from '../../hooks/useHttp';
 
 const initialState = {
+  products: null,
   priceSort: null,
   includeOutOfStock: false,
   fastDeliveryOnly: false,
@@ -14,10 +16,20 @@ const initialState = {
 const ProductsContext = createContext(initialState);
 
 const ProductsProvider = ({ children }) => {
+  const { products } = useHttp('/api/products', 'get');
+
   const [productsState, productsDispatch] = useReducer(
     productsReducer,
     initialState
   );
+
+  useEffect(() => {
+    products !== undefined &&
+      productsDispatch({
+        type: 'SET_INITIAL_DATA',
+        payload: { products },
+      });
+  }, [products]);
 
   const value = {
     ...productsState,

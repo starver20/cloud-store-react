@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { makeServer } from './server';
 import { ProductsProvider } from './context/product-listing/products-context';
+import { CartProvider } from './context/cart/cart-context';
 
 // Call make Server
 makeServer();
@@ -11,7 +12,9 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <ProductsProvider>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </ProductsProvider>
   </React.StrictMode>,
   document.getElementById('root')

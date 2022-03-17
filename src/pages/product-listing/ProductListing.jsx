@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import FilterSidebar from '../../components/sidebar/FilterSidebar';
 import classes from './ProductListing.module.css';
@@ -8,6 +8,7 @@ import useHttp from '../../hooks/useHttp';
 
 const ProductListing = () => {
   const {
+    products: data,
     includeOutOfStock,
     fastDeliveryOnly,
     priceRange,
@@ -15,11 +16,10 @@ const ProductListing = () => {
     ratingRange,
     categoryName,
   } = useProducts();
-
   // rename products to data, and assign undefined so that loading state can be shown
-  const { products: data = undefined } = useHttp('/api/products', 'get');
+  // const { products: data = undefined } = useHttp('/api/products', 'get');
 
-  // Various filter functions
+  // Various filter functions for productListing
   const inStockFilter = (data) => {
     if (!includeOutOfStock) {
       return data.filter((prod) => prod.inStock);
@@ -80,7 +80,7 @@ const ProductListing = () => {
   );
 
   let products = [];
-  if (data !== undefined) {
+  if (data !== null) {
     products = applyFilters(data);
   }
 
@@ -107,7 +107,7 @@ const ProductListing = () => {
             </svg>
           </div>
           <div className={classes['prod-listing']}>
-            {data === undefined ? (
+            {data === null ? (
               <h1>Loading...</h1>
             ) : products.length > 0 ? (
               products.map((product) => <ProductCard {...product} />)

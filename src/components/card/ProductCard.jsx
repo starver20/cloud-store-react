@@ -1,16 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './ProductCard.module.css';
+import { useCart } from '../../context/cart/cart-context';
 // fallback image
+import { useProducts } from '../../context/product-listing/products-context';
 import { clippersCity } from '../../assets/index';
+import { useNavigate } from 'react-router-dom';
 
-const ProductCard = ({
-  title = 'Product Title',
-  image = clippersCity,
-  itemDescription = 'Product Description',
-  price = '1000',
-  rating = 1,
-  wishlisted = false,
-}) => {
+const ProductCard = (product) => {
+  // Cart related functions
+  const {
+    title = 'Product Title',
+    image = clippersCity,
+    itemDescription = 'Product Description',
+    price = '1000',
+    rating = 1,
+    wishlisted = false,
+    addedToCart = false,
+  } = product;
+  const { cartDispatch } = useCart();
+
+  const { productsDispatch } = useProducts();
+
+  const [addToCart, setAddToCart] = useState(addedToCart);
+
+  const navigate = useNavigate();
+
+  const addToCartHandler = () => {
+    // Perform network call here to add item to cart, if its successful only then continue with
+    // following operations
+
+    if (addToCart) {
+      navigate('/cart');
+      return;
+    }
+
+    setAddToCart(true);
+
+    cartDispatch({ type: 'ADD_TO_CART', payload: { product } });
+    productsDispatch({
+      type: 'ADD/REMOVE_FROM_CART',
+      payload: { id: product.id },
+    });
+  };
+
   return (
     <>
       <div className={`prod-card ${classes.card}`}>
@@ -36,7 +68,9 @@ const ProductCard = ({
           </div>
           <p className="prod-price">₹{price}</p>
         </div>
-        <button className="add-cart-btn">ADD TO CART</button>
+        <button onClick={addToCartHandler} className="add-cart-btn">
+          {addToCart ? 'GO TO CART' : 'ADD TO CART'}
+        </button>
         <span className="fav">
           <svg
             className="w-6 h-6"
