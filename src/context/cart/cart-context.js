@@ -14,32 +14,10 @@ const cartReducer = (state, action) => {
     case 'ADD_TO_CART': {
       const productToAdd = action.payload.product;
 
-      const index = state.cartProducts.findIndex(
-        (product) => product.id === productToAdd.id
-      );
-
-      if (index !== -1) {
-        // Product already exists in cart
-        let newProduct = { ...state.cartProducts[index] };
-        newProduct.quantity += 1;
-
-        let newTotalPrice =
-          Number(state.cartTotalPrice) + Number(newProduct.price);
-
-        let newCartProducts = [...state.cartProducts];
-        newCartProducts[index] = newProduct;
-
-        return {
-          ...state,
-          cartProducts: newCartProducts,
-          cartTotalPrice: newTotalPrice,
-        };
-      }
-
       // Product does not exist in cart
       let newCartProducts = [...state.cartProducts];
-      // productToAdd.quantity = 1;
-      newCartProducts.push({ ...productToAdd, quantity: 1 });
+      // unShift to add product to start of array
+      newCartProducts.unshift({ ...productToAdd, quantity: 1 });
 
       const newTotalPrice =
         Number(state.cartTotalPrice) + Number(productToAdd.price);
@@ -51,6 +29,74 @@ const cartReducer = (state, action) => {
         ...state,
         cartProducts: newCartProducts,
         cartTotalItems: newTotalItems,
+        cartTotalPrice: newTotalPrice,
+      };
+    }
+
+    case 'REMOVE_FROM_CART': {
+      const productToRemove = action.payload.product;
+
+      let newCartProducts = state.cartProducts.filter(
+        (product) => product.id !== productToRemove.id
+      );
+
+      console.log(newCartProducts);
+
+      let newTotalPrice =
+        Number(state.cartTotalPrice) -
+        Number(productToRemove.quantity) * Number(productToRemove.price);
+
+      const newTotalItems = state.cartTotalItems - 1;
+
+      return {
+        ...state,
+        cartProducts: newCartProducts,
+        cartTotalItems: newTotalItems,
+        cartTotalPrice: newTotalPrice,
+      };
+    }
+
+    case 'INC_ITEM_QUANTITY': {
+      const productId = action.payload.id;
+
+      const index = state.cartProducts.findIndex(
+        (product) => product.id === productId
+      );
+
+      let newProduct = { ...state.cartProducts[index] };
+      newProduct.quantity += 1;
+
+      let newTotalPrice =
+        Number(state.cartTotalPrice) + Number(newProduct.price);
+
+      let newCartProducts = [...state.cartProducts];
+      newCartProducts[index] = newProduct;
+
+      return {
+        ...state,
+        cartProducts: newCartProducts,
+        cartTotalPrice: newTotalPrice,
+      };
+    }
+    case 'DEC_ITEM_QUANTITY': {
+      const productId = action.payload.id;
+
+      const index = state.cartProducts.findIndex(
+        (product) => product.id === productId
+      );
+
+      let newProduct = { ...state.cartProducts[index] };
+      newProduct.quantity -= 1;
+
+      let newTotalPrice =
+        Number(state.cartTotalPrice) - Number(newProduct.price);
+
+      let newCartProducts = [...state.cartProducts];
+      newCartProducts[index] = newProduct;
+
+      return {
+        ...state,
+        cartProducts: newCartProducts,
         cartTotalPrice: newTotalPrice,
       };
     }

@@ -36,6 +36,8 @@ const ProductsProvider = ({ children }) => {
     productsDispatch,
   };
 
+  console.log('This runs everytime, so can put all filter functions here');
+
   return (
     <ProductsContext.Provider value={value}>
       {children}
