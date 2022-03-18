@@ -15,15 +15,13 @@ const cartReducer = (state, action) => {
       const productToAdd = action.payload.product;
 
       // Product does not exist in cart
-      let newCartProducts = [...state.cartProducts];
+      const newCartProducts = [...state.cartProducts];
       // unShift to add product to start of array
       newCartProducts.unshift({ ...productToAdd, quantity: 1 });
 
       const newTotalPrice =
         Number(state.cartTotalPrice) + Number(productToAdd.price);
       const newTotalItems = state.cartTotalItems + 1;
-
-      console.log(newCartProducts, newTotalItems, newTotalPrice);
 
       return {
         ...state,
@@ -36,13 +34,11 @@ const cartReducer = (state, action) => {
     case 'REMOVE_FROM_CART': {
       const productToRemove = action.payload.product;
 
-      let newCartProducts = state.cartProducts.filter(
+      const newCartProducts = state.cartProducts.filter(
         (product) => product.id !== productToRemove.id
       );
 
-      console.log(newCartProducts);
-
-      let newTotalPrice =
+      const newTotalPrice =
         Number(state.cartTotalPrice) -
         Number(productToRemove.quantity) * Number(productToRemove.price);
 
@@ -63,13 +59,13 @@ const cartReducer = (state, action) => {
         (product) => product.id === productId
       );
 
-      let newProduct = { ...state.cartProducts[index] };
+      const newProduct = { ...state.cartProducts[index] };
       newProduct.quantity += 1;
 
-      let newTotalPrice =
+      const newTotalPrice =
         Number(state.cartTotalPrice) + Number(newProduct.price);
 
-      let newCartProducts = [...state.cartProducts];
+      const newCartProducts = [...state.cartProducts];
       newCartProducts[index] = newProduct;
 
       return {
@@ -85,13 +81,13 @@ const cartReducer = (state, action) => {
         (product) => product.id === productId
       );
 
-      let newProduct = { ...state.cartProducts[index] };
+      const newProduct = { ...state.cartProducts[index] };
       newProduct.quantity -= 1;
 
-      let newTotalPrice =
+      const newTotalPrice =
         Number(state.cartTotalPrice) - Number(newProduct.price);
 
-      let newCartProducts = [...state.cartProducts];
+      const newCartProducts = [...state.cartProducts];
       newCartProducts[index] = newProduct;
 
       return {
@@ -102,7 +98,7 @@ const cartReducer = (state, action) => {
     }
 
     default:
-      break;
+      return state;
   }
 };
 
