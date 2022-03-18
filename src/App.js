@@ -5,10 +5,11 @@ import WishList from './pages/wishlist/WishList';
 import Cart from './pages/cart/Cart';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
+import Mockman from 'mockman-js';
 
 function App() {
   return (
-    <div>
+    <div className="MockAPI">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -17,6 +18,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/m" element={<Mockman />} />
           <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>
