@@ -67,10 +67,7 @@ const Home = () => {
           <p className={classes['tagline']}>ALL THINGS BASKETBALL.</p>
         </div>
         <div className={classes['category']}>
-          <a
-            className={classes['category-shoe-link']}
-            href="../productListing/productListing.html"
-          >
+          <Link to="/product-listing" className={classes['category-shoe-link']}>
             <div
               className={classes['category-shoe']}
               style={{
@@ -82,10 +79,10 @@ const Home = () => {
             >
               AIR JORDAN SERIES
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
+            to="/product-listing"
             className={classes['category-jersey-link']}
-            href="../productListing/productListing.html"
           >
             <div
               className={classes['category-jersey']}
@@ -98,7 +95,7 @@ const Home = () => {
             >
               JERSEY AND KITS
             </p>
-          </a>
+          </Link>
         </div>
       </section>
     </>
