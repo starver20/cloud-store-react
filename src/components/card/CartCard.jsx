@@ -15,8 +15,6 @@ const CartCard = (product) => {
     wishlisted = false,
   } = product;
 
-  console.log(product);
-
   const { cartDispatch } = useCart();
   const { productsDispatch } = useProducts();
 

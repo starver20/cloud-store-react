@@ -17,7 +17,6 @@ const jwt = require('jsonwebtoken');
 
 export const signupHandler = function (schema, request) {
   const { email, password, ...rest } = JSON.parse(request.requestBody);
-  console.log(email);
   try {
     // check if email already exists
     const foundUser = schema.users.findBy({ email });
