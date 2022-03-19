@@ -6,6 +6,11 @@
   align-items: center;
 }
 
+.guest {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .card {
   text-align: center;
   background-color: var(--background-color);

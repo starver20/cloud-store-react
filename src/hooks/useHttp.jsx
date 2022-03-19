@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const useHttp = (url, method, headers = {}) => {
+const useHttp = (url, method, headers = {}, body = {}) => {
   const [data, setData] = useState({});
 
   const networkCall = async () => {
@@ -9,6 +9,7 @@ const useHttp = (url, method, headers = {}) => {
       method,
       url,
       headers,
+      data: body,
     });
 
     setData(data);

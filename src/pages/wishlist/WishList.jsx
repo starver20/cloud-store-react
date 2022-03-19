@@ -14,7 +14,7 @@ const WishList = () => {
 
   if (products !== null) {
     wishlistProducts = products.filter((product) =>
-      wishlist.includes(product.id)
+      wishlist.includes(product._id)
     );
   }
 

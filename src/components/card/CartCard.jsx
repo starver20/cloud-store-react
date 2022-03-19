@@ -3,6 +3,7 @@ import { lakersCity } from '../../assets';
 import classes from './CartCard.module.css';
 import { useCart } from '../../context/cart/cart-context';
 import { useProducts } from '../../context/products/products-context';
+import axios from 'axios';
 
 const CartCard = (product) => {
   const {
@@ -17,7 +18,7 @@ const CartCard = (product) => {
   const { cartDispatch } = useCart();
   const { productsDispatch, wishlist } = useProducts();
 
-  const isWishlisted = wishlist.includes(product.id.toString());
+  const isWishlisted = wishlist.includes(product._id.toString());
 
   const itemQuantityChangeHandler = (e) => {
     // Network call here to change quantity then the following actions
@@ -30,7 +31,7 @@ const CartCard = (product) => {
     cartDispatch({ type: 'REMOVE_FROM_CART', payload: { product } });
     productsDispatch({
       type: 'ADD/REMOVE_FROM_CART',
-      payload: { id: product.id },
+      payload: { id: product._id },
     });
   };
 
@@ -42,7 +43,7 @@ const CartCard = (product) => {
 
     productsDispatch({
       type: 'TOGGLE_WISHLIST',
-      payload: { id: product.id },
+      payload: { _id: product._id },
     });
   };
 

@@ -2,12 +2,29 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/cart/cart-context';
 import { useProducts } from '../../context/products/products-context';
+import { useAuth } from '../../context/auth/auth-context';
+import { useNavigate } from 'react-router-dom';
 
-const Navbar = ({ auth = 'login' }) => {
+const Navbar = ({ page = 'home' }) => {
   const { cartTotalItems } = useCart();
-  const { wishlist } = useProducts();
+  const { wishlist, productsDispatch } = useProducts();
+  const { logout } = useAuth();
+
+  const navigate = useNavigate();
+  let jwt = localStorage.getItem('jwt');
 
   let wishlistTotalItems = wishlist.length;
+
+  const authClickHandler = () => {
+    if (jwt) {
+      productsDispatch({
+        type: 'INITIALIZE_WISHLIST',
+        payload: { wishlist: [] },
+      });
+      logout();
+    }
+    navigate('/login');
+  };
 
   return (
     <>
@@ -21,13 +38,16 @@ const Navbar = ({ auth = 'login' }) => {
           </div>
           <div className="nav-action-container">
             <div className="nav-action">
-              <Link to={`${auth === 'login' ? '/login' : '/signup'}`}>
-                <button className="nav--action__login">
-                  {auth === 'login' ? 'LOGIN' : 'SIGNUP'}
+              {page !== 'auth' && (
+                <button
+                  onClick={authClickHandler}
+                  className="nav--action__login"
+                >
+                  {jwt ? 'LOGOUT' : 'LOGIN'}
                 </button>
-              </Link>
+              )}
               <div className="nav-icon">
-                <Link to="/wishlist">
+                <Link to={jwt ? '/wishlist' : '/login'}>
                   <svg
                     className="w-6 h-6"
                     fill="none"
@@ -48,7 +68,7 @@ const Navbar = ({ auth = 'login' }) => {
                 </Link>
               </div>
               <div className="nav-icon">
-                <Link to="/cart">
+                <Link to={jwt ? '/cart' : '/login'}>
                   <svg
                     className="w-6 h-6"
                     fill="none"
