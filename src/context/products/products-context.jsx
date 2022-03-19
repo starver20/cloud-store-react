@@ -4,6 +4,8 @@ import useHttp from '../../hooks/useHttp';
 
 const initialState = {
   products: null,
+  cart: { cartProducts: [], cartTotalItems: 0, cartTotalPrice: 0 },
+  wishlist: [],
   priceSort: null,
   includeOutOfStock: false,
   fastDeliveryOnly: false,
@@ -36,6 +38,7 @@ const ProductsProvider = ({ children }) => {
     productsDispatch,
   };
 
+  // Imp console.log, please ignore.
   console.log('This runs everytime, so can put all filter functions here');
 
   return (

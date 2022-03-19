@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './ProductCard.module.css';
 import { useCart } from '../../context/cart/cart-context';
 // fallback image
-import { useProducts } from '../../context/product-listing/products-context';
+import { useProducts } from '../../context/products/products-context';
 import { clippersCity } from '../../assets/index';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,14 +14,16 @@ const ProductCard = (product) => {
     itemDescription = 'Product Description',
     price = '1000',
     rating = 1,
-    wishlisted = false,
     addedToCart = false,
   } = product;
+
   const { cartDispatch } = useCart();
 
-  const { productsDispatch } = useProducts();
+  const { productsDispatch, wishlist } = useProducts();
 
   const [addToCart, setAddToCart] = useState(addedToCart);
+
+  const isWishlisted = wishlist.includes(product.id.toString());
 
   const navigate = useNavigate();
 
@@ -39,6 +41,16 @@ const ProductCard = (product) => {
     cartDispatch({ type: 'ADD_TO_CART', payload: { product } });
     productsDispatch({
       type: 'ADD/REMOVE_FROM_CART',
+      payload: { id: product.id },
+    });
+  };
+
+  const wishlistClickHandler = () => {
+    // Perform network call here to add item to wishlist, if its successful only then continue with
+    // following operations
+
+    productsDispatch({
+      type: 'TOGGLE_WISHLIST',
       payload: { id: product.id },
     });
   };
@@ -71,10 +83,10 @@ const ProductCard = (product) => {
         <button onClick={addToCartHandler} className="add-cart-btn">
           {addToCart ? 'GO TO CART' : 'ADD TO CART'}
         </button>
-        <span className="fav">
+        <span onClick={wishlistClickHandler} className="fav">
           <svg
             className="w-6 h-6"
-            fill={wishlisted ? 'red' : 'none'}
+            fill={isWishlisted ? 'red' : 'none'}
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +94,7 @@ const ProductCard = (product) => {
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width={wishlisted ? 0 : 1}
+              stroke-width={isWishlisted ? 0 : 1}
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             ></path>
           </svg>

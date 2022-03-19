@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './FilterSidebar.module.css';
-import { useProducts } from '../../context/product-listing/products-context';
+import { useProducts } from '../../context/products/products-context';
 
 const FilterSidebar = () => {
   const {
