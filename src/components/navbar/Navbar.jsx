@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/cart/cart-context';
+import { useProducts } from '../../context/products/products-context';
 
 const Navbar = ({ auth = 'login' }) => {
   const { cartTotalItems } = useCart();
+  const { wishlist } = useProducts();
+
+  let wishlistTotalItems = wishlist.length;
 
   return (
     <>
@@ -38,7 +42,9 @@ const Navbar = ({ auth = 'login' }) => {
                       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                     ></path>
                   </svg>
-                  <span className="icon-number">4</span>
+                  {wishlistTotalItems > 0 && (
+                    <span className="icon-number">{wishlistTotalItems}</span>
+                  )}
                 </Link>
               </div>
               <div className="nav-icon">

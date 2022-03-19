@@ -43,7 +43,6 @@ const productsReducer = (state, action) => {
     }
 
     case 'DELIVERY_TYPE': {
-      console.log(action.payload.fastDelivery);
       return {
         ...state,
         fastDeliveryOnly: action.payload.fastDelivery,
@@ -58,8 +57,6 @@ const productsReducer = (state, action) => {
     }
 
     case 'SET_INITIAL_DATA': {
-      console.log(action.payload.products);
-
       return {
         ...state,
         products: [...action.payload.products],
@@ -78,6 +75,39 @@ const productsReducer = (state, action) => {
         ...state,
         products: newProductsList,
       };
+    }
+
+    case 'TOGGLE_WISHLIST': {
+      let updatedWishlist;
+
+      if (state.wishlist.includes(action.payload.id)) {
+        updatedWishlist = state.wishlist.filter(
+          (id) => id !== action.payload.id
+        );
+        console.log(updatedWishlist);
+
+        return { ...state, wishlist: updatedWishlist };
+      }
+
+      updatedWishlist = [...state.wishlist];
+      updatedWishlist.unshift(action.payload.id);
+      console.log(updatedWishlist);
+      return {
+        ...state,
+        wishlist: updatedWishlist,
+      };
+
+      // const index = state.products.findIndex(
+      //   (product) => product.id === action.payload.id
+      // );
+      // let updatedProduct = { ...state.products[index] };
+      // updatedProduct.wishlisted = !state.products[index].wishlisted;
+      // let updatedProductsList = [...state.products];
+      // updatedProductsList[index] = updatedProduct;
+      // return {
+      //   ...state,
+      //   products: updatedProductsList,
+      // };
     }
 
     case 'CLEAR': {

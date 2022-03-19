@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { lakersCity } from '../../assets';
 import classes from './CartCard.module.css';
 import { useCart } from '../../context/cart/cart-context';
-import { useProducts } from '../../context/product-listing/products-context';
+import { useProducts } from '../../context/products/products-context';
 
 const CartCard = (product) => {
   const {
@@ -12,11 +12,12 @@ const CartCard = (product) => {
     itemDescription = 'Nike Dri-FIT NBA Swingman Jersey',
     quantity = 1,
     price = 1000,
-    wishlisted = false,
   } = product;
 
   const { cartDispatch } = useCart();
-  const { productsDispatch } = useProducts();
+  const { productsDispatch, wishlist } = useProducts();
+
+  const isWishlisted = wishlist.includes(product.id.toString());
 
   const itemQuantityChangeHandler = (e) => {
     // Network call here to change quantity then the following actions
@@ -29,6 +30,18 @@ const CartCard = (product) => {
     cartDispatch({ type: 'REMOVE_FROM_CART', payload: { product } });
     productsDispatch({
       type: 'ADD/REMOVE_FROM_CART',
+      payload: { id: product.id },
+    });
+  };
+
+  const wishlistClickHandler = () => {
+    // Perform network call here to add item to wishlist, if its successful only then continue with
+    // following operations
+
+    // Here how to change wishlisted status for cart items?????
+
+    productsDispatch({
+      type: 'TOGGLE_WISHLIST',
       payload: { id: product.id },
     });
   };
@@ -68,10 +81,10 @@ const CartCard = (product) => {
           </button>
         </div>
         <p className={classes['prod-price']}>₹{price}</p>
-        <span className={classes.fav}>
+        <span onClick={wishlistClickHandler} className={classes.fav}>
           <svg
             className="w-6 h-6"
-            fill={wishlisted ? 'red' : 'none'}
+            fill={isWishlisted ? 'red' : 'none'}
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +92,7 @@ const CartCard = (product) => {
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              strokeWidth={wishlisted ? 0 : 1}
+              strokeWidth={isWishlisted ? 0 : 1}
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             ></path>
           </svg>
