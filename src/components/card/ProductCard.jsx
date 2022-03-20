@@ -15,40 +15,52 @@ const ProductCard = (product) => {
     itemDescription = 'Product Description',
     price = '1000',
     rating = 1,
-    addedToCart = false,
   } = product;
 
-  const { cartDispatch } = useCart();
-
+  const { cartDispatch, cartProducts } = useCart();
   const { productsDispatch, wishlist } = useProducts();
 
-  const [addToCart, setAddToCart] = useState(addedToCart);
   const isWishlisted = wishlist.includes(product._id.toString());
+
+  const index = cartProducts.findIndex((item) => item._id === product._id);
+
+  const isAddedToCart = index === -1 ? false : true;
 
   const navigate = useNavigate();
 
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     // Perform network call here to add item to cart, if its successful only then continue with
     // following operations
 
-    if (addToCart) {
-      navigate('/cart');
-      return;
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      let response;
+      if (isAddedToCart) {
+        navigate('/cart');
+        return;
+      } else {
+        response = await axios.post(
+          '/api/user/cart',
+          { product },
+          { headers: { authorization: jwt } }
+        );
+      }
+
+      if (response.status === 201) {
+        cartDispatch({
+          type: 'UPDATE_CART',
+          payload: { cart: response.data.cart },
+        });
+      }
+    } else {
+      navigate('/login');
     }
-
-    setAddToCart(true);
-
-    cartDispatch({ type: 'ADD_TO_CART', payload: { product } });
-    productsDispatch({
-      type: 'ADD/REMOVE_FROM_CART',
-      payload: { id: product.id },
-    });
   };
 
   const wishlistClickHandler = async () => {
-    // Perform network call here to add item to wishlist, if its successful only then continue with
-    // following operations
     const jwt = localStorage.getItem('jwt');
+    console.log(jwt);
+
     if (jwt) {
       let response;
       if (isWishlisted) {
@@ -65,6 +77,7 @@ const ProductCard = (product) => {
         );
       }
 
+      // Add or remove from wishlist, 201 for adding, 200 for removing
       if (response.status === 201 || response.status === 200) {
         productsDispatch({
           type: 'TOGGLE_WISHLIST',
@@ -102,7 +115,7 @@ const ProductCard = (product) => {
           <p className="prod-price">₹{price}</p>
         </div>
         <button onClick={addToCartHandler} className="add-cart-btn">
-          {addToCart ? 'GO TO CART' : 'ADD TO CART'}
+          {isAddedToCart ? 'GO TO CART' : 'ADD TO CART'}
         </button>
         <span onClick={wishlistClickHandler} className="fav">
           <svg

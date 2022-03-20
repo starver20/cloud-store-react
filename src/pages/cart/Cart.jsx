@@ -6,7 +6,22 @@ import CartCard from '../../components/card/CartCard';
 import CheckoutCard from '../../components/card/CheckoutCard';
 import { useCart } from '../../context/cart/cart-context';
 const Cart = () => {
-  const { cartProducts, cartTotalItems, cartTotalPrice } = useCart();
+  const { cartProducts } = useCart();
+
+  const { totalItems, totalPrice } = cartProducts.reduce(
+    (acc, cur) => {
+      console.log(cur.price, cur.qty);
+      console.log(cur.price * cur.qty);
+      return {
+        totalItems: acc.totalItems + cur.qty,
+        totalPrice: acc.totalPrice + cur.qty * cur.price,
+      };
+    },
+    {
+      totalItems: 0,
+      totalPrice: 0,
+    }
+  );
 
   // Add wishlisted attribute to products in the product listing page itself
   return (
@@ -19,7 +34,7 @@ const Cart = () => {
               <h1>CART</h1>
               <div>
                 <span>
-                  {cartTotalItems} ITEMS | ₹{cartTotalPrice}
+                  {totalItems} ITEMS | ₹{totalPrice}
                 </span>
               </div>
             </div>
@@ -37,8 +52,8 @@ const Cart = () => {
         {cartProducts.length > 0 ? (
           <aside>
             <CheckoutCard
-              cartTotalItems={cartTotalItems}
-              cartTotalPrice={cartTotalPrice}
+              cartTotalItems={totalItems}
+              cartTotalPrice={totalPrice}
             />
           </aside>
         ) : null}

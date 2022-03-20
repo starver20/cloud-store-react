@@ -32,9 +32,6 @@ export const products = [
     inStock: true,
     fastDelivery: true,
     rating: 2,
-    // actually these both values have to be set in frontend by comparing the products list with wishlist and castlist
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -46,8 +43,6 @@ export const products = [
     inStock: true,
     fastDelivery: true,
     rating: 3,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -59,8 +54,6 @@ export const products = [
     inStock: true,
     fastDelivery: true,
     rating: 4,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -72,8 +65,6 @@ export const products = [
     inStock: true,
     fastDelivery: true,
     rating: 5,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -85,8 +76,6 @@ export const products = [
     inStock: true,
     fastDelivery: true,
     rating: 3,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -98,8 +87,6 @@ export const products = [
     inStock: true,
     fastDelivery: true,
     rating: 2,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -111,8 +98,6 @@ export const products = [
     inStock: true,
     fastDelivery: false,
     rating: 1,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -124,8 +109,6 @@ export const products = [
     inStock: true,
     fastDelivery: true,
     rating: 4,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -137,8 +120,6 @@ export const products = [
     inStock: true,
     fastDelivery: false,
     rating: 5,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -150,8 +131,6 @@ export const products = [
     inStock: false,
     fastDelivery: false,
     rating: 4,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -163,8 +142,6 @@ export const products = [
     inStock: false,
     fastDelivery: false,
     rating: 3,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -176,8 +153,6 @@ export const products = [
     inStock: false,
     fastDelivery: false,
     rating: 4,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -189,8 +164,6 @@ export const products = [
     inStock: true,
     fastDelivery: false,
     rating: 2,
-    wishlisted: false,
-    addedToCart: false,
   },
   {
     _id: uuid(),
@@ -202,7 +175,5 @@ export const products = [
     inStock: false,
     fastDelivery: true,
     rating: 4,
-    wishlisted: false,
-    addedToCart: false,
   },
 ];

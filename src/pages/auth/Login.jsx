@@ -4,11 +4,13 @@ import classes from './Auth.module.css';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth/auth-context';
 import { useProducts } from '../../context/products/products-context';
+import { useCart } from '../../context/cart/cart-context';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { login } = useAuth();
   const { productsDispatch } = useProducts();
+  const { cartDispatch } = useCart();
   const navigate = useNavigate();
 
   const loginClickHandler = async (e) => {
@@ -19,10 +21,17 @@ const Login = () => {
         password: e.target.password.value,
       });
 
+      console.log(user.wishlist, user.cart);
+
       if (status === 200) {
         productsDispatch({
           type: 'INITIALIZE_WISHLIST',
           payload: { wishlist: user.wishlist },
+        });
+
+        cartDispatch({
+          type: 'UPDATE_CART',
+          payload: { cart: user.cart },
         });
 
         navigate('/');
@@ -41,10 +50,16 @@ const Login = () => {
         password: 'adarshBalika123',
       });
 
+      console.log(user.wishlist, user.cart);
       if (status === 200) {
         productsDispatch({
           type: 'INITIALIZE_WISHLIST',
           payload: { wishlist: user.wishlist },
+        });
+
+        cartDispatch({
+          type: 'UPDATE_CART',
+          payload: { cart: user.cart },
         });
 
         navigate('/');

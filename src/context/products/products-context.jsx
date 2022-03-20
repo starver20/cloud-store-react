@@ -4,7 +4,6 @@ import useHttp from '../../hooks/useHttp';
 
 const initialState = {
   products: null,
-  cart: { cartProducts: [], cartTotalItems: 0, cartTotalPrice: 0 },
   wishlist: [],
   priceSort: null,
   includeOutOfStock: false,

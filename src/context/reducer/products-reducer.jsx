@@ -66,22 +66,15 @@ const productsReducer = (state, action) => {
       };
     }
 
-    // Has to be changed
-    case 'ADD/REMOVE_FROM_CART': {
-      const index = state.products.findIndex(
-        (product) => product.id === action.payload.id
-      );
-      let newProduct = { ...state.products[index] };
-      newProduct.addedToCart = !state.products[index].addedToCart;
-      let newProductsList = [...state.products];
-      newProductsList[index] = newProduct;
-      return {
-        ...state,
-        products: newProductsList,
-      };
+    // Wishlist
+
+    // Initialize wishlist
+    case 'INITIALIZE_WISHLIST': {
+      let editedWishlist = action.payload.wishlist.map((item) => item._id);
+      return { ...state, wishlist: editedWishlist };
     }
 
-    // Wishlist
+    // Add or remove from wishlist
     case 'TOGGLE_WISHLIST': {
       let updatedWishlist;
 
@@ -99,12 +92,6 @@ const productsReducer = (state, action) => {
         ...state,
         wishlist: updatedWishlist,
       };
-    }
-
-    // Initialize wishlist
-    case 'INITIALIZE_WISHLIST': {
-      let editedWishlist = action.payload.wishlist.map((item) => item._id);
-      return { ...state, wishlist: editedWishlist };
     }
 
     case 'CLEAR': {
