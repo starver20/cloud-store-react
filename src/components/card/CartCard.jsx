@@ -11,7 +11,7 @@ const CartCard = (product) => {
     image = lakersCity,
     title = 'Lakers City Edition',
     itemDescription = 'Nike Dri-FIT NBA Swingman Jersey',
-    quantity = 1,
+    qty: quantity,
     price = 1000,
   } = product;
 
@@ -20,19 +20,49 @@ const CartCard = (product) => {
 
   const isWishlisted = wishlist.includes(product._id.toString());
 
-  const itemQuantityChangeHandler = (e) => {
-    // Network call here to change quantity then the following actions
-    cartDispatch({ type: e.target.name, payload: { id } });
+  const itemQuantityChangeHandler = async (e) => {
+    console.log(quantity);
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      let response = await axios.post(
+        `/api/user/cart/${product._id}`,
+
+        { action: { type: e.target.name } },
+
+        { headers: { authorization: jwt } }
+      );
+
+      console.log(response);
+
+      response.status === 200 &&
+        cartDispatch({
+          type: 'UPDATE_CART',
+          payload: { cart: response.data.cart },
+        });
+    } else {
+      navigate('/login');
+    }
+    // cartDispatch({ type: e.target.name, payload: { id } });
   };
 
-  const removeFromCartHandler = (e) => {
-    // Network call here to remove item from cart, then the following actions
+  const removeFromCartHandler = async (e) => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      let response = await axios.delete(
+        `/api/user/cart/${product._id}`,
 
-    cartDispatch({ type: 'REMOVE_FROM_CART', payload: { product } });
-    productsDispatch({
-      type: 'ADD/REMOVE_FROM_CART',
-      payload: { id: product._id },
-    });
+        { headers: { authorization: jwt } }
+      );
+
+      if (response.status === 200) {
+        cartDispatch({
+          type: 'UPDATE_CART',
+          payload: { cart: response.data.cart },
+        });
+      }
+    } else {
+      navigate('/login');
+    }
   };
 
   const wishlistClickHandler = async () => {
@@ -78,16 +108,13 @@ const CartCard = (product) => {
           <div className={classes.quantity}>
             <button
               onClick={itemQuantityChangeHandler}
-              name="DEC_ITEM_QUANTITY"
+              name="decrement"
               disabled={quantity === 1}
             >
               -
             </button>
             <div>{quantity}</div>
-            <button
-              onClick={itemQuantityChangeHandler}
-              name="INC_ITEM_QUANTITY"
-            >
+            <button onClick={itemQuantityChangeHandler} name="increment">
               +
             </button>
           </div>

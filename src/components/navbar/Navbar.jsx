@@ -6,7 +6,7 @@ import { useAuth } from '../../context/auth/auth-context';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ page = 'home' }) => {
-  const { cartTotalItems } = useCart();
+  const { cartDispatch, cartProducts } = useCart();
   const { wishlist, productsDispatch } = useProducts();
   const { logout } = useAuth();
 
@@ -14,12 +14,18 @@ const Navbar = ({ page = 'home' }) => {
   let jwt = localStorage.getItem('jwt');
 
   let wishlistTotalItems = wishlist.length;
+  const cartTotalItems = cartProducts.length;
 
-  const authClickHandler = () => {
+  const authClickHandler = (e) => {
+    // If user is logged in, then log him out and clear the wishlist and cart
     if (jwt) {
       productsDispatch({
         type: 'INITIALIZE_WISHLIST',
         payload: { wishlist: [] },
+      });
+      cartDispatch({
+        type: 'UPDATE_CART',
+        payload: { cart: [] },
       });
       logout();
     }
