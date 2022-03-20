@@ -85,20 +85,16 @@ const productsReducer = (state, action) => {
     case 'TOGGLE_WISHLIST': {
       let updatedWishlist;
 
-      console.log(action.payload._id);
-
       if (state.wishlist.includes(action.payload._id)) {
         updatedWishlist = state.wishlist.filter(
           (_id) => _id !== action.payload._id
         );
-        console.log(updatedWishlist);
 
         return { ...state, wishlist: updatedWishlist };
       }
 
       updatedWishlist = [...state.wishlist];
       updatedWishlist.unshift(action.payload._id);
-      console.log(updatedWishlist);
       return {
         ...state,
         wishlist: updatedWishlist,
