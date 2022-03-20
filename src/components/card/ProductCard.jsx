@@ -5,6 +5,7 @@ import { useCart } from '../../context/cart/cart-context';
 import { useProducts } from '../../context/products/products-context';
 import { clippersCity } from '../../assets/index';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const ProductCard = (product) => {
   // Cart related functions
@@ -22,8 +23,7 @@ const ProductCard = (product) => {
   const { productsDispatch, wishlist } = useProducts();
 
   const [addToCart, setAddToCart] = useState(addedToCart);
-
-  const isWishlisted = wishlist.includes(product.id.toString());
+  const isWishlisted = wishlist.includes(product._id.toString());
 
   const navigate = useNavigate();
 
@@ -45,14 +45,35 @@ const ProductCard = (product) => {
     });
   };
 
-  const wishlistClickHandler = () => {
+  const wishlistClickHandler = async () => {
     // Perform network call here to add item to wishlist, if its successful only then continue with
     // following operations
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      let response;
+      if (isWishlisted) {
+        response = await axios.delete(
+          `/api/user/wishlist/${product._id}`,
 
-    productsDispatch({
-      type: 'TOGGLE_WISHLIST',
-      payload: { id: product.id },
-    });
+          { headers: { authorization: jwt } }
+        );
+      } else {
+        response = await axios.post(
+          '/api/user/wishlist',
+          { product },
+          { headers: { authorization: jwt } }
+        );
+      }
+
+      if (response.status === 201 || response.status === 200) {
+        productsDispatch({
+          type: 'TOGGLE_WISHLIST',
+          payload: { _id: product._id },
+        });
+      }
+    } else {
+      navigate('/login');
+    }
   };
 
   return (

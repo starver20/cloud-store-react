@@ -1,5 +1,7 @@
 const productsReducer = (state, action) => {
   switch (action.type) {
+    // Filters
+
     case 'PRICE_SORT': {
       return {
         ...state,
@@ -56,6 +58,7 @@ const productsReducer = (state, action) => {
       };
     }
 
+    // Initialize products
     case 'SET_INITIAL_DATA': {
       return {
         ...state,
@@ -63,6 +66,7 @@ const productsReducer = (state, action) => {
       };
     }
 
+    // Has to be changed
     case 'ADD/REMOVE_FROM_CART': {
       const index = state.products.findIndex(
         (product) => product.id === action.payload.id
@@ -77,37 +81,30 @@ const productsReducer = (state, action) => {
       };
     }
 
+    // Wishlist
     case 'TOGGLE_WISHLIST': {
       let updatedWishlist;
 
-      if (state.wishlist.includes(action.payload.id)) {
+      if (state.wishlist.includes(action.payload._id)) {
         updatedWishlist = state.wishlist.filter(
-          (id) => id !== action.payload.id
+          (_id) => _id !== action.payload._id
         );
-        console.log(updatedWishlist);
 
         return { ...state, wishlist: updatedWishlist };
       }
 
       updatedWishlist = [...state.wishlist];
-      updatedWishlist.unshift(action.payload.id);
-      console.log(updatedWishlist);
+      updatedWishlist.unshift(action.payload._id);
       return {
         ...state,
         wishlist: updatedWishlist,
       };
+    }
 
-      // const index = state.products.findIndex(
-      //   (product) => product.id === action.payload.id
-      // );
-      // let updatedProduct = { ...state.products[index] };
-      // updatedProduct.wishlisted = !state.products[index].wishlisted;
-      // let updatedProductsList = [...state.products];
-      // updatedProductsList[index] = updatedProduct;
-      // return {
-      //   ...state,
-      //   products: updatedProductsList,
-      // };
+    // Initialize wishlist
+    case 'INITIALIZE_WISHLIST': {
+      let editedWishlist = action.payload.wishlist.map((item) => item._id);
+      return { ...state, wishlist: editedWishlist };
     }
 
     case 'CLEAR': {

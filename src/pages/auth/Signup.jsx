@@ -2,27 +2,49 @@ import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import classes from './Auth.module.css';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/auth/auth-context';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const { signup } = useAuth();
+  const navigate = useNavigate();
+
+  const submitClickHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      let { status } = await signup({
+        email: e.target.email.value,
+        password: e.target.password.value,
+        firstName: e.target.firstname.value,
+        lastName: e.target.lastname.value,
+      });
+
+      status === 201 && navigate('/');
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
     <div>
-      <Navbar />
+      <Navbar page="auth" />
       <section className={classes['main-content']}>
-        <div className={classes['card']}>
+        <form onSubmit={submitClickHandler} className={classes['card']}>
           <h1>CloudStore</h1>
           <h3>Signup</h3>
           <input
             className={classes['creds']}
             type="text"
-            name="first-name"
-            id="first-name"
+            name="firstname"
+            id="firstname"
             placeholder="First Name"
           />
           <input
             className={classes['creds']}
             type="text"
-            name="last-name"
-            id="last-name"
+            name="lastname"
+            id="lastname"
             placeholder="Last Name"
           />
           <input
@@ -59,14 +81,14 @@ const Signup = () => {
               </Link>
             </span>
           </div>
-          <Link to="/login">
-            <button className={classes['auth-btn']}>SIGNUP</button>
-          </Link>
+          <button type="submit" className={classes['auth-btn']}>
+            SIGNUP
+          </button>
           <span>Already a member?</span>
           <Link to="/login">
             <span className={classes.link}>Login</span>
           </Link>
-        </div>
+        </form>
       </section>
     </div>
   );

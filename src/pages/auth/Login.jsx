@@ -2,13 +2,65 @@ import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import classes from './Auth.module.css';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/auth/auth-context';
+import { useProducts } from '../../context/products/products-context';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const { login } = useAuth();
+  const { productsDispatch } = useProducts();
+  const navigate = useNavigate();
+
+  const loginClickHandler = async (e) => {
+    e.preventDefault();
+    try {
+      let { user, status } = await login({
+        email: e.target.email.value,
+        password: e.target.password.value,
+      });
+
+      if (status === 200) {
+        productsDispatch({
+          type: 'INITIALIZE_WISHLIST',
+          payload: { wishlist: user.wishlist },
+        });
+
+        navigate('/');
+      } else {
+        alert('Invalid email or password');
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const guestLogin = async () => {
+    try {
+      let { user, status } = await login({
+        email: 'adarshbalika@gmail.com',
+        password: 'adarshBalika123',
+      });
+
+      if (status === 200) {
+        productsDispatch({
+          type: 'INITIALIZE_WISHLIST',
+          payload: { wishlist: user.wishlist },
+        });
+
+        navigate('/');
+      } else {
+        alert('Invalid email or password');
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
     <div>
-      <Navbar auth="signup" />
+      <Navbar page="auth" />
       <section className={classes['main-content']}>
-        <div className={classes['card']}>
+        <form onSubmit={loginClickHandler} className={classes['card']}>
           <h1>CloudStore</h1>
           <h3>Login</h3>
           <input
@@ -35,14 +87,21 @@ const Login = () => {
               <span className={classes.link}>Forgot your password?</span>
             </Link>
           </div>
-          <Link to="/">
-            <button className={classes['auth-btn']}>LOGIN</button>
-          </Link>
+          <div
+            onClick={guestLogin}
+            className={`${classes['forgot-pass']} ${classes.guest}`}
+          >
+            <span className={classes.link}>Guest login</span>
+          </div>
+          <button type="submit" className={classes['auth-btn']}>
+            LOGIN
+          </button>
+
           <span>Not a member?</span>
           <Link to="/signup">
             <span className={classes.link}>Join us</span>
           </Link>
-        </div>
+        </form>
       </section>
     </div>
   );

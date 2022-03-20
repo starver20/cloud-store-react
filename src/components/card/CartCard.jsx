@@ -3,6 +3,7 @@ import { lakersCity } from '../../assets';
 import classes from './CartCard.module.css';
 import { useCart } from '../../context/cart/cart-context';
 import { useProducts } from '../../context/products/products-context';
+import axios from 'axios';
 
 const CartCard = (product) => {
   const {
@@ -17,7 +18,7 @@ const CartCard = (product) => {
   const { cartDispatch } = useCart();
   const { productsDispatch, wishlist } = useProducts();
 
-  const isWishlisted = wishlist.includes(product.id.toString());
+  const isWishlisted = wishlist.includes(product._id.toString());
 
   const itemQuantityChangeHandler = (e) => {
     // Network call here to change quantity then the following actions
@@ -30,20 +31,37 @@ const CartCard = (product) => {
     cartDispatch({ type: 'REMOVE_FROM_CART', payload: { product } });
     productsDispatch({
       type: 'ADD/REMOVE_FROM_CART',
-      payload: { id: product.id },
+      payload: { id: product._id },
     });
   };
 
-  const wishlistClickHandler = () => {
-    // Perform network call here to add item to wishlist, if its successful only then continue with
-    // following operations
+  const wishlistClickHandler = async () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      let response;
+      if (isWishlisted) {
+        response = await axios.delete(
+          `/api/user/wishlist/${product._id}`,
 
-    // Here how to change wishlisted status for cart items?????
+          { headers: { authorization: jwt } }
+        );
+      } else {
+        response = await axios.post(
+          '/api/user/wishlist',
+          { product },
+          { headers: { authorization: jwt } }
+        );
+      }
 
-    productsDispatch({
-      type: 'TOGGLE_WISHLIST',
-      payload: { id: product.id },
-    });
+      if (response.status === 201 || response.status === 200) {
+        productsDispatch({
+          type: 'TOGGLE_WISHLIST',
+          payload: { _id: product._id },
+        });
+      }
+    } else {
+      navigate('/login');
+    }
   };
 
   return (
