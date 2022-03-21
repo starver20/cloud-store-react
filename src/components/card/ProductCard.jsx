@@ -4,7 +4,6 @@ import { useCart } from '../../context/cart/cart-context';
 // fallback image
 import { useProducts } from '../../context/products/products-context';
 import { clippersCity } from '../../assets/index';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAPI from '../../hooks/useAPI';
 import addToCartHandler from '../../utils/addToCartHandler';
@@ -31,7 +30,6 @@ const ProductCard = (product) => {
 
   const isAddedToCart = index === -1 ? false : true;
 
-  const navigate = useNavigate();
 
   const { loading: addToCartLoading, callAsyncFunction: addToCart } = useAPI(
     addToCartHandler,
@@ -44,37 +42,7 @@ const ProductCard = (product) => {
   const { loading: wishlistLoading, callAsyncFunction: toggleWishlist } =
     useAPI(wishlistClickHandler, isWishlisted, productsDispatch, product);
 
-  // const wishlistClickHandler = async () => {
-  //   const jwt = localStorage.getItem('jwt');
-  //   console.log(jwt);
 
-  //   if (jwt) {
-  //     let response;
-  //     if (isWishlisted) {
-  //       response = await axios.delete(
-  //         `/api/user/wishlist/${product._id}`,
-
-  //         { headers: { authorization: jwt } }
-  //       );
-  //     } else {
-  //       response = await axios.post(
-  //         '/api/user/wishlist',
-  //         { product },
-  //         { headers: { authorization: jwt } }
-  //       );
-  //     }
-
-  //     // Add or remove from wishlist, 201 for adding, 200 for removing
-  //     if (response.status === 201 || response.status === 200) {
-  //       productsDispatch({
-  //         type: 'TOGGLE_WISHLIST',
-  //         payload: { _id: product._id },
-  //       });
-  //     }
-  //   } else {
-  //     navigate('/login');
-  //   }
-  // };
 
   return (
     <>
