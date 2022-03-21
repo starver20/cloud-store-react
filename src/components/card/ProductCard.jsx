@@ -6,6 +6,9 @@ import { useProducts } from '../../context/products/products-context';
 import { clippersCity } from '../../assets/index';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import useAPI from '../../hooks/useAPI';
+import addToCartHandler from '../../utils/addToCartHandler';
+import wishlistClickHandler from '../../utils/wishlistClickHandler';
 
 const ProductCard = (product) => {
   // Cart related functions
@@ -16,6 +19,8 @@ const ProductCard = (product) => {
     price = '1000',
     rating = 1,
   } = product;
+
+  // const [loading, setLoading] = useState(false);
 
   const { cartDispatch, cartProducts } = useCart();
   const { productsDispatch, wishlist } = useProducts();
@@ -28,66 +33,48 @@ const ProductCard = (product) => {
 
   const navigate = useNavigate();
 
-  const addToCartHandler = async () => {
-    // Perform network call here to add item to cart, if its successful only then continue with
-    // following operations
+  const { loading: addToCartLoading, callAsyncFunction: addToCart } = useAPI(
+    addToCartHandler,
+    isAddedToCart,
+    cartDispatch,
+    product,
+    '/cart'
+  );
 
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      let response;
-      if (isAddedToCart) {
-        navigate('/cart');
-        return;
-      } else {
-        response = await axios.post(
-          '/api/user/cart',
-          { product },
-          { headers: { authorization: jwt } }
-        );
-      }
+  const { loading: wishlistLoading, callAsyncFunction: toggleWishlist } =
+    useAPI(wishlistClickHandler, isWishlisted, productsDispatch, product);
 
-      if (response.status === 201) {
-        cartDispatch({
-          type: 'UPDATE_CART',
-          payload: { cart: response.data.cart },
-        });
-      }
-    } else {
-      navigate('/login');
-    }
-  };
+  // const wishlistClickHandler = async () => {
+  //   const jwt = localStorage.getItem('jwt');
+  //   console.log(jwt);
 
-  const wishlistClickHandler = async () => {
-    const jwt = localStorage.getItem('jwt');
-    console.log(jwt);
+  //   if (jwt) {
+  //     let response;
+  //     if (isWishlisted) {
+  //       response = await axios.delete(
+  //         `/api/user/wishlist/${product._id}`,
 
-    if (jwt) {
-      let response;
-      if (isWishlisted) {
-        response = await axios.delete(
-          `/api/user/wishlist/${product._id}`,
+  //         { headers: { authorization: jwt } }
+  //       );
+  //     } else {
+  //       response = await axios.post(
+  //         '/api/user/wishlist',
+  //         { product },
+  //         { headers: { authorization: jwt } }
+  //       );
+  //     }
 
-          { headers: { authorization: jwt } }
-        );
-      } else {
-        response = await axios.post(
-          '/api/user/wishlist',
-          { product },
-          { headers: { authorization: jwt } }
-        );
-      }
-
-      // Add or remove from wishlist, 201 for adding, 200 for removing
-      if (response.status === 201 || response.status === 200) {
-        productsDispatch({
-          type: 'TOGGLE_WISHLIST',
-          payload: { _id: product._id },
-        });
-      }
-    } else {
-      navigate('/login');
-    }
-  };
+  //     // Add or remove from wishlist, 201 for adding, 200 for removing
+  //     if (response.status === 201 || response.status === 200) {
+  //       productsDispatch({
+  //         type: 'TOGGLE_WISHLIST',
+  //         payload: { _id: product._id },
+  //       });
+  //     }
+  //   } else {
+  //     navigate('/login');
+  //   }
+  // };
 
   return (
     <>
@@ -114,10 +101,18 @@ const ProductCard = (product) => {
           </div>
           <p className="prod-price">₹{price}</p>
         </div>
-        <button onClick={addToCartHandler} className="add-cart-btn">
-          {isAddedToCart ? 'GO TO CART' : 'ADD TO CART'}
+        <button
+          disabled={addToCartLoading}
+          onClick={addToCart}
+          className="add-cart-btn"
+        >
+          {isAddedToCart
+            ? 'GO TO CART'
+            : addToCartLoading
+            ? 'ADDING...'
+            : 'ADD TO CART'}
         </button>
-        <span onClick={wishlistClickHandler} className="fav">
+        <span onClick={wishlistLoading ? null : toggleWishlist} className="fav">
           <svg
             className="w-6 h-6"
             fill={isWishlisted ? 'red' : 'none'}
