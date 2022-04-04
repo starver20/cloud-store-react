@@ -10,7 +10,7 @@ const AddressContext = createContext(initialAddressState);
 const addressReducer = (state, action) => {
   switch (action.type) {
     case 'UPDATE_ADDRESS':
-      return { address: action.paload.address };
+      return { address: action.payload.address };
 
     default:
       return state;

@@ -3,14 +3,54 @@ import classes from './Profile.module.css';
 import Navbar from '../../components/navbar/Navbar';
 import { useAddress } from '../../context/address/address-context';
 import AddressModal from '../../components/address-modal/AddressModal';
+import addAddressHandler from '../../utils/addAddressHandler';
+import useAPI from '../../hooks/useAPI';
+import editAddressHandler from '../../utils/editAddressHandler';
+import deleteAddressHandler from '../../utils/deleteAddressHandler';
 
 const Profile = () => {
-  const { address } = useAddress();
+  const { address, addressDispatch } = useAddress();
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [curentAddress, setCurrentAddress] = useState({});
+
+  console.log(curentAddress);
+
+  const addressChangeHandler = (e) => {
+    console.log(e.target.value);
+    setCurrentAddress((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
 
   const toggleAddressModal = () => {
     setShowAddressModal((prevState) => !prevState);
   };
+
+  const addClickHandler = () => {
+    setIsEditing(false);
+    toggleAddressModal();
+  };
+
+  const editClickHandler = (address) => {
+    console.log('Edit Handler');
+    setCurrentAddress(address);
+    setIsEditing(true);
+    toggleAddressModal();
+  };
+
+  const { callAsyncFunction: addAddress, loading: addAddressLoading } = useAPI(
+    addAddressHandler,
+    addressDispatch,
+    curentAddress
+  );
+  const { callAsyncFunction: editAddress, loading: editAddressLoading } =
+    useAPI(editAddressHandler, addressDispatch, curentAddress);
+
+  const { callAsyncFunction: deleteAddress, loading: deleteAddressLoading } =
+    useAPI(deleteAddressHandler, addressDispatch, curentAddress);
+
   return (
     <div>
       <Navbar />
@@ -34,10 +74,29 @@ const Profile = () => {
         </aside>
         <main>
           <div className={classes['address-container']}>
-            <p className={classes.address}>Saved Delivery Addresses</p>
+            <p className={classes['address-title']}>Saved Delivery Addresses</p>
             {address.length > 0 ? (
               address.map((address) => {
-                <p>address.city</p>;
+                return (
+                  <div className={classes['single-address-container']}>
+                    <div className={classes.address}>
+                      <p>{address.name}</p>
+                      <p>{address.building}</p>
+                      <p>{address.city}</p>
+                      <p>{address.state}</p>
+                      <p>{address.pincode}</p>
+                      <p>{address.mobile}</p>
+                    </div>
+                    <div
+                      className={classes['address-actions']}
+                      onClick={() => {
+                        editClickHandler(address);
+                      }}
+                    >
+                      <p className={classes['address-edit']}>EDIT</p>
+                    </div>
+                  </div>
+                );
               })
             ) : (
               <p className={classes.msg}>
@@ -45,13 +104,22 @@ const Profile = () => {
                 address here to be pre-filled for quicker checkout.
               </p>
             )}
-            <button onClick={toggleAddressModal} className="nav--action__login">
+            <button onClick={addClickHandler} className="nav--action__login">
               Add Address
             </button>
           </div>
         </main>
         {showAddressModal && (
-          <AddressModal toggleAddressModal={toggleAddressModal} />
+          <AddressModal
+            toggleAddressModal={toggleAddressModal}
+            addressChangeHandler={addressChangeHandler}
+            addAddress={addAddress}
+            editAddress={editAddress}
+            deleteAddress={deleteAddress}
+            curentAddress={curentAddress}
+            isEditing={isEditing}
+            setCurrentAddress={setCurrentAddress}
+          />
         )}
       </section>
     </div>

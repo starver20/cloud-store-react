@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import classes from './ProductCard.module.css';
 import { useCart } from '../../context/cart/cart-context';
-// fallback image
 import { useProducts } from '../../context/products/products-context';
 import { clippersCity } from '../../assets/index';
-import axios from 'axios';
 import useAPI from '../../hooks/useAPI';
 import addToCartHandler from '../../utils/addToCartHandler';
 import wishlistClickHandler from '../../utils/wishlistClickHandler';
@@ -30,19 +28,15 @@ const ProductCard = (product) => {
 
   const isAddedToCart = index === -1 ? false : true;
 
-
   const { loading: addToCartLoading, callAsyncFunction: addToCart } = useAPI(
     addToCartHandler,
-    isAddedToCart,
     cartDispatch,
     product,
-    '/cart'
+    isAddedToCart
   );
 
   const { loading: wishlistLoading, callAsyncFunction: toggleWishlist } =
-    useAPI(wishlistClickHandler, isWishlisted, productsDispatch, product);
-
-
+    useAPI(wishlistClickHandler, productsDispatch, product, isWishlisted);
 
   return (
     <>
@@ -80,7 +74,7 @@ const ProductCard = (product) => {
             ? 'ADDING...'
             : 'ADD TO CART'}
         </button>
-        <span onClick={wishlistLoading ? null : toggleWishlist} className="fav">
+        <span onClick={!wishlistLoading && toggleWishlist} className="fav">
           <svg
             className="w-6 h-6"
             fill={isWishlisted ? 'red' : 'none'}

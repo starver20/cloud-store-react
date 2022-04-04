@@ -96,6 +96,7 @@ export const addAddressHandler = function (schema, request) {
 
 export const removeAddressHandler = function (schema, request) {
   const userId = requiresAuth.call(this, request);
+  console.log(userId);
   try {
     if (!userId) {
       new Response(
@@ -110,9 +111,12 @@ export const removeAddressHandler = function (schema, request) {
       _id: userId,
     }).address;
 
+    console.log(userAddress);
+
     const addressId = request.params.addressId;
 
     userAddress = userAddress.filter((item) => item._id !== addressId);
+    console.log(userAddress);
     this.db.users.update(
       {
         _id: userId,

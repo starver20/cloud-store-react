@@ -1,0 +1,26 @@
+.address-form {
+  padding: 3rem;
+}
+
+.title {
+  font-size: var(--header-3);
+}
+
+.header {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.save-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+.save-btn > button {
+  margin-right: 2rem;
+}
+
+.save-btn > button:disabled {
+  background-color: var(--sub-text-color);
+  cursor: not-allowed;
+}
