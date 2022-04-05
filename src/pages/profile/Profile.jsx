@@ -14,8 +14,6 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [curentAddress, setCurrentAddress] = useState({});
 
-  console.log(curentAddress);
-
   const addressChangeHandler = (e) => {
     console.log(e.target.value);
     setCurrentAddress((prevState) => ({

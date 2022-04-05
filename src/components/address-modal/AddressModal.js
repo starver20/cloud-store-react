@@ -2,7 +2,7 @@ import Modal from '../modal/Modal';
 import classes from './AddressModal.module.css';
 import DeleteIcon from '../../assets/svg-icons/DeleteIcon';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const AddressModal = ({
   toggleAddressModal,
