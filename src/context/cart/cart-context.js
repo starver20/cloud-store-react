@@ -3,8 +3,7 @@ import cartReducer from '../reducer/cart-reducer';
 
 const initialCartState = {
   cartProducts: [],
-  cartTotalItems: 0,
-  cartTotalPrice: 0,
+  orderAddress: {},
   cartDispatch: () => {},
 };
 

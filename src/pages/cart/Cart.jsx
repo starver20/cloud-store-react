@@ -1,10 +1,10 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import classes from './Cart.module.css';
-import { netsStatement, celticsCity, philadelphiaCity } from '../../assets';
 import CartCard from '../../components/card/CartCard';
 import CheckoutCard from '../../components/card/CheckoutCard';
 import { useCart } from '../../context/cart/cart-context';
+import { Link } from 'react-router-dom';
 const Cart = () => {
   const { cartProducts } = useCart();
 
@@ -54,6 +54,7 @@ const Cart = () => {
             <CheckoutCard
               cartTotalItems={totalItems}
               cartTotalPrice={totalPrice}
+              type="cart"
             />
           </aside>
         ) : null}

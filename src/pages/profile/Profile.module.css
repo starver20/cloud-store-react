@@ -47,11 +47,6 @@
   margin-bottom: 2rem;
 }
 
-.address {
-  font-size: var(--body-3);
-  color: var(--sub-text-color);
-}
-
 .single-address-container {
   display: flex;
   align-items: center;
@@ -60,10 +55,9 @@
   margin-bottom: 2rem;
 }
 
-.address-edit {
-  font-size: var(--body-4);
-  cursor: pointer;
-  text-decoration: underline;
+.address {
+  font-size: var(--body-3);
+  color: var(--sub-text-color);
 }
 
 .address-actions {
@@ -76,6 +70,12 @@
 .msg {
   font-size: var(--body-2);
   margin-bottom: 2rem;
+}
+
+.address-edit {
+  font-size: var(--body-4);
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 @media (max-width: 800px) {

@@ -5,6 +5,10 @@ const cartReducer = (state, action) => {
       return { ...state, cartProducts: action.payload.cart };
     }
 
+    case 'UPDATE_ORDER_ADDRESS': {
+      return { ...state, orderAddress: action.payload.address };
+    }
+
     default:
       return state;
   }

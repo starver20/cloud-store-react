@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import classes from './CheckoutCard.module.css';
 
-const CheckoutCard = ({ cartTotalItems, cartTotalPrice }) => {
+const CheckoutCard = ({ cartTotalItems, cartTotalPrice, type }) => {
+  const buttonName = type === 'cart' ? 'PLACE ORDER' : 'PAY SECURELY';
+
   return (
     <>
       <div className={classes['checkout-card']}>
@@ -31,7 +34,9 @@ const CheckoutCard = ({ cartTotalItems, cartTotalPrice }) => {
           <span>₹{cartTotalPrice}.00</span>
         </div>
       </div>
-      <button className={classes['checkout-btn']}>CHECKOUT</button>
+      <Link to={type === 'cart' && '/checkout'}>
+        <button className={classes['checkout-btn']}>{buttonName}</button>
+      </Link>
     </>
   );
 };

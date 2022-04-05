@@ -7,6 +7,7 @@ import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import Mockman from 'mockman-js';
 import Profile from './pages/profile/Profile';
+import Checkout from './pages/checkout/Checkout';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/product-listing" element={<ProductListing />} />
         <Route path="/wishlist" element={<WishList />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
