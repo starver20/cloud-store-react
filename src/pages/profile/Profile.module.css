@@ -1,0 +1,94 @@
+.main-content {
+  display: flex;
+}
+
+.main-content aside {
+  padding: 7rem 2rem 0;
+  transition: width 0.5s;
+  width: 260px;
+  height: calc(100vh - 5rem);
+  overflow-y: auto;
+  position: sticky;
+  top: 50px;
+  border-right: 1px solid var(--background-color);
+}
+
+.main-content main {
+  padding: 0 2rem;
+  margin-left: 15rem;
+  margin-bottom: 15rem;
+  flex: 1 0;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  font-size: var(--body-2);
+  cursor: pointer;
+}
+
+.sidebar-item > svg {
+  width: 2.5rem;
+}
+
+.address-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 50rem;
+}
+.address-container > button {
+  margin-top: 2rem;
+}
+
+.address-title {
+  font-size: var(--header-3);
+  margin-bottom: 2rem;
+}
+
+.address {
+  font-size: var(--body-3);
+  color: var(--sub-text-color);
+}
+
+.single-address-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--sub-text-color);
+  margin-bottom: 2rem;
+}
+
+.address-edit {
+  font-size: var(--body-4);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.address-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.msg {
+  font-size: var(--body-2);
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 800px) {
+  .main-content aside {
+    display: none;
+  }
+  .main-content main {
+    padding: 5rem;
+    margin: 0;
+  }
+
+  .address-container {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+}

@@ -6,7 +6,8 @@
   padding-top: 5rem;
   transition: width 0.5s;
   width: 260px;
-  height: fit-content;
+  height: calc(100vh - 5rem);
+  overflow-y: auto;
   position: sticky;
   top: 50px;
   border-right: 1px solid var(--background-color);

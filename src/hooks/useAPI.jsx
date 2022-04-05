@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const useAPI = (asyncFunction, check, dispatch, payload, navigateTo = '') => {
+const useAPI = (asyncFunction, dispatch, payload, check) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const callAsyncFunction = async () => {
-    await asyncFunction(
-      payload,
-      check,
-      dispatch,
-      navigate,
-      setLoading,
-      navigateTo
-    );
+    try {
+      setLoading(true);
+      await asyncFunction(dispatch, navigate, payload, check);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
   };
 
   return { callAsyncFunction, loading };

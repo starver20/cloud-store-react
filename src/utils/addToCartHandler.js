@@ -1,20 +1,12 @@
 import axios from 'axios';
-const addToCartHandler = async (
-  product,
-  check,
-  cartDispatch,
-  navigate,
-  setLoading,
-  navigateTo
-) => {
+const addToCartHandler = async (cartDispatch, navigate, product, isIncart) => {
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
     let response;
-    if (check) {
-      navigate(navigateTo);
+    if (isIncart) {
+      navigate('/cart');
       return;
     } else {
-      setLoading(true);
       response = await axios.post(
         '/api/user/cart',
         { product },
@@ -28,7 +20,6 @@ const addToCartHandler = async (
         payload: { cart: response.data.cart },
       });
     }
-    setLoading(false);
   } else {
     navigate('/login');
     return;

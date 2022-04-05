@@ -1,15 +1,13 @@
 import axios from 'axios';
 const wishlistClickHandler = async (
-  product,
-  check,
   productsDispatch,
   navigate,
-  setLoading
+  product,
+  check
 ) => {
   const jwt = localStorage.getItem('jwt');
 
   if (jwt) {
-    setLoading(true);
     let response;
     if (check) {
       response = await axios.delete(
@@ -32,7 +30,6 @@ const wishlistClickHandler = async (
         payload: { _id: product._id },
       });
     }
-    setLoading(false);
   } else {
     navigate('/login');
   }
