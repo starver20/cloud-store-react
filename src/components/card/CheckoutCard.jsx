@@ -52,7 +52,7 @@ const CheckoutCard = ({
 
     const options = {
       key: 'rzp_test_FXFhjZiqILaiKr', // Enter the Key ID generated from the Dashboard
-      amount: cartTotalPrice,
+      amount: cartTotalPrice * 100,
       currency: 'INR',
       name: 'CloudStore',
       description: 'Thank you',
