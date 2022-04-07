@@ -5,7 +5,6 @@ import WishList from './pages/wishlist/WishList';
 import Cart from './pages/cart/Cart';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
-import Mockman from 'mockman-js';
 import Profile from './pages/profile/Profile';
 import Checkout from './pages/checkout/Checkout';
 
@@ -21,7 +20,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/m" element={<Mockman />} />
         <Route path="*" element={<Login />} />
       </Routes>
     </div>

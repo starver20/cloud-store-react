@@ -155,18 +155,6 @@ const Checkout = () => {
             </button>
           </div>
         </main>
-        {showAddressModal && (
-          <AddressModal
-            toggleAddressModal={toggleAddressModal}
-            addressChangeHandler={addressChangeHandler}
-            addAddress={addAddress}
-            editAddress={editAddress}
-            deleteAddress={deleteAddress}
-            curentAddress={curentAddress}
-            isEditing={isEditing}
-            setCurrentAddress={setCurrentAddress}
-          />
-        )}
 
         {cartProducts.length > 0 ? (
           <aside>
@@ -178,6 +166,18 @@ const Checkout = () => {
           </aside>
         ) : null}
       </section>
+      {showAddressModal && (
+        <AddressModal
+          toggleAddressModal={toggleAddressModal}
+          addressChangeHandler={addressChangeHandler}
+          addAddress={addAddress}
+          editAddress={editAddress}
+          deleteAddress={deleteAddress}
+          curentAddress={curentAddress}
+          isEditing={isEditing}
+          setCurrentAddress={setCurrentAddress}
+        />
+      )}
     </div>
   );
 };
