@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import classes from './Cart.module.css';
-import { netsStatement, celticsCity, philadelphiaCity } from '../../assets';
 import CartCard from '../../components/card/CartCard';
 import CheckoutCard from '../../components/card/CheckoutCard';
 import { useCart } from '../../context/cart/cart-context';
@@ -52,8 +51,10 @@ const Cart = () => {
         {cartProducts.length > 0 ? (
           <aside>
             <CheckoutCard
+              cartProducts={cartProducts}
               cartTotalItems={totalItems}
               cartTotalPrice={totalPrice}
+              type="cart"
             />
           </aside>
         ) : null}
