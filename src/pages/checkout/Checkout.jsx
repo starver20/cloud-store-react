@@ -159,9 +159,11 @@ const Checkout = () => {
         {cartProducts.length > 0 ? (
           <aside>
             <CheckoutCard
+              cartProducts={cartProducts}
               cartTotalItems={totalItems}
               cartTotalPrice={totalPrice}
               type="address"
+              curentAddress={curentAddress}
             />
           </aside>
         ) : null}

@@ -4,7 +4,6 @@ import classes from './Cart.module.css';
 import CartCard from '../../components/card/CartCard';
 import CheckoutCard from '../../components/card/CheckoutCard';
 import { useCart } from '../../context/cart/cart-context';
-import { Link } from 'react-router-dom';
 const Cart = () => {
   const { cartProducts } = useCart();
 
@@ -52,6 +51,7 @@ const Cart = () => {
         {cartProducts.length > 0 ? (
           <aside>
             <CheckoutCard
+              cartProducts={cartProducts}
               cartTotalItems={totalItems}
               cartTotalPrice={totalPrice}
               type="cart"

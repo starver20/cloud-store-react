@@ -9,6 +9,13 @@ const cartReducer = (state, action) => {
       return { ...state, orderAddress: action.payload.address };
     }
 
+    case 'UPDATE_ORDER': {
+      let newOrders = [...state.previousOrders];
+      newOrders.push(action.payload.order);
+
+      return { ...state, previousOrders: newOrders };
+    }
+
     default:
       return state;
   }

@@ -4,6 +4,7 @@ import cartReducer from '../reducer/cart-reducer';
 const initialCartState = {
   cartProducts: [],
   orderAddress: {},
+  previousOrders: [],
   cartDispatch: () => {},
 };
 

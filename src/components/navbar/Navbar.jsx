@@ -38,7 +38,7 @@ const Navbar = ({ page = 'home' }) => {
       <header className="header">
         <nav className="navbar">
           <Link to={'/'} className="nav-logo">
-            CloudStream
+            CloudStore
           </Link>
           <div className="nav-search">
             <input type="text" name="search" id="search" placeholder="Search" />
