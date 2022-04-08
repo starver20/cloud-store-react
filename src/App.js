@@ -7,6 +7,7 @@ import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import Profile from './pages/profile/Profile';
 import Checkout from './pages/checkout/Checkout';
+import SingleProduct from './pages/single-product/SingleProduct';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product-listing" element={<ProductListing />} />
+        <Route path="/product/:productId" element={<SingleProduct />} />
         <Route path="/wishlist" element={<WishList />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />

@@ -16,6 +16,7 @@ const Checkout = () => {
   const [showAddressModal, setShowAddressModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [curentAddress, setCurrentAddress] = useState({});
+  console.log(curentAddress);
 
   const { totalItems, totalPrice } = cartProducts.reduce(
     (acc, cur) => {
@@ -102,6 +103,7 @@ const Checkout = () => {
                           checked={orderAddress._id === _id}
                           onClick={() => {
                             console.log('amar');
+
                             cartDispatch({
                               type: 'UPDATE_ORDER_ADDRESS',
                               payload: {
@@ -163,7 +165,7 @@ const Checkout = () => {
               cartTotalItems={totalItems}
               cartTotalPrice={totalPrice}
               type="address"
-              curentAddress={curentAddress}
+              orderAddress={orderAddress}
             />
           </aside>
         ) : null}
@@ -175,8 +177,8 @@ const Checkout = () => {
           addAddress={addAddress}
           editAddress={editAddress}
           deleteAddress={deleteAddress}
+          isEditing={false}
           curentAddress={curentAddress}
-          isEditing={isEditing}
           setCurrentAddress={setCurrentAddress}
         />
       )}
