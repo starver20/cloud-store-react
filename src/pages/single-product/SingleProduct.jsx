@@ -8,6 +8,7 @@ import { useProducts } from '../../context/products/products-context';
 import useAPI from '../../hooks/useAPI';
 import addToCartHandler from '../../utils/addToCartHandler';
 import wishlistClickHandler from '../../utils/wishlistClickHandler';
+import { Link } from 'react-router-dom';
 
 const SingleProduct = () => {
   const { productId } = useParams();
@@ -40,7 +41,22 @@ const SingleProduct = () => {
   return (
     <div>
       <Navbar />
+
       <section className={classes['main-content']}>
+        <Link to={'/product-listing'}>
+          <svg
+            className={classes.back}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </Link>
         {product ? (
           <article className={classes.product}>
             <div className={classes['image-container']}>
