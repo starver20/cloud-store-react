@@ -6,6 +6,7 @@ import { clippersCity } from '../../assets/index';
 import useAPI from '../../hooks/useAPI';
 import addToCartHandler from '../../utils/addToCartHandler';
 import wishlistClickHandler from '../../utils/wishlistClickHandler';
+import { Link } from 'react-router-dom';
 
 const ProductCard = (product) => {
   // Cart related functions
@@ -41,12 +42,14 @@ const ProductCard = (product) => {
   return (
     <>
       <div className={`prod-card ${classes.card}`}>
-        <div
-          className="prod-img"
-          style={{
-            backgroundImage: `url(${image})`,
-          }}
-        ></div>
+        <Link to={`/product/${product._id}`}>
+          <div
+            className="prod-img"
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          ></div>
+        </Link>
         <div className="prod-details">
           <h4 className="prod-name">{title}</h4>
           <p className="prod-info">{itemDescription}</p>
