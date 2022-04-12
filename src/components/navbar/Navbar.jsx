@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/cart/cart-context';
 import { useProducts } from '../../context/products/products-context';
 import { useAuth } from '../../context/auth/auth-context';
 import { useNavigate } from 'react-router-dom';
 import classes from './Navbar.module.css';
+import filterSearchProducts from '../../utils/filterSearchProducts';
 
 const Navbar = ({ page = 'home' }) => {
+  const [searchProducts, setSearchProducts] = useState([]);
+
   const { cartDispatch, cartProducts } = useCart();
-  const { wishlist, productsDispatch } = useProducts();
+  const { wishlist, productsDispatch, searchTerm, products } = useProducts();
   const { logout } = useAuth();
 
   const navigate = useNavigate();
@@ -33,6 +36,39 @@ const Navbar = ({ page = 'home' }) => {
     navigate('/login');
   };
 
+  const productClickHandler = (id) => {
+    setSearchProducts([]);
+    productsDispatch({
+      type: 'UPDATE_SEARCH_TERM',
+      payload: { searchTerm: '' },
+    });
+
+    navigate(`/product/${id}`);
+  };
+
+  const searchTermChangeHandler = (e) => {
+    productsDispatch({
+      type: 'UPDATE_SEARCH_TERM',
+      payload: { searchTerm: e.target.value },
+    });
+  };
+
+  useEffect(() => {
+    let timeoutId = setTimeout(() => {
+      // call the function to filter products
+      let searchResult = filterSearchProducts(products, searchTerm);
+      if (searchResult === null) {
+        setSearchProducts([]);
+      } else {
+        setSearchProducts(searchResult);
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [searchTerm]);
+
   return (
     <>
       <header className="header">
@@ -41,7 +77,33 @@ const Navbar = ({ page = 'home' }) => {
             CloudStore
           </Link>
           <div className="nav-search">
-            <input type="text" name="search" id="search" placeholder="Search" />
+            <div className={classes.search}>
+              <input
+                onChange={searchTermChangeHandler}
+                type="text"
+                name="search"
+                id="search"
+                placeholder="Search"
+              />
+            </div>
+            {searchProducts.length > 0 ? (
+              <div className={classes['search-list']}>
+                <ul>
+                  {searchProducts.map((product) => {
+                    return (
+                      <li
+                        onClick={() => {
+                          productClickHandler(product._id);
+                        }}
+                        className={classes.product}
+                      >
+                        {product.title}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : null}
           </div>
           <div className="nav-action-container">
             <div className="nav-action">
