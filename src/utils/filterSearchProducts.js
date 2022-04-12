@@ -7,7 +7,7 @@ const filterSearchProducts = (products = [], searchTerm = '') => {
     let arr = product.title
       .split(' ')
       .filter((word) =>
-        word.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+        word.toLocaleLowerCase().includes(searchTerm.trim().toLocaleLowerCase())
       );
 
     if (arr.length === 0) return false;
