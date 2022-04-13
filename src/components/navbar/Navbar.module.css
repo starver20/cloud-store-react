@@ -52,3 +52,7 @@
   padding: 5px 0;
   cursor: pointer;
 }
+
+.not-found {
+  font-size: var(--body-2);
+}

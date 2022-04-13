@@ -86,7 +86,7 @@ const Navbar = ({ page = 'home' }) => {
                 placeholder="Search"
               />
             </div>
-            {searchProducts.length > 0 ? (
+            {searchProducts.length > 0 || searchTerm !== '' ? (
               <div className={classes['search-list']}>
                 <ul>
                   {searchProducts.map((product) => {
@@ -102,6 +102,11 @@ const Navbar = ({ page = 'home' }) => {
                     );
                   })}
                 </ul>
+                {searchProducts.length === 0 ? (
+                  <p className={classes['not-found']}>
+                    No matching products found.
+                  </p>
+                ) : null}
               </div>
             ) : null}
           </div>
