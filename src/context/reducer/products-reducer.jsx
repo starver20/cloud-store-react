@@ -94,6 +94,10 @@ const productsReducer = (state, action) => {
       };
     }
 
+    case 'UPDATE_SEARCH_TERM': {
+      return { ...state, searchTerm: action.payload.searchTerm };
+    }
+
     case 'CLEAR': {
       return {
         ...state,
