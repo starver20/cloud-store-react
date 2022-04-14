@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createContext, useContext, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const authContext = createContext({
   login: async () => {},
@@ -36,6 +37,7 @@ const useProvideAuth = () => {
   const signup = async (body) => {
     let response = await axios.post('/api/auth/signup', body);
     if (response.status === 201) {
+      toast.success('Signup successfull.');
       localStorage.setItem('jwt', response.data.encodedToken);
       localStorage.setItem('user', JSON.stringify(response.data.createdUser));
       setUser(response.data.createdUser);
@@ -44,6 +46,7 @@ const useProvideAuth = () => {
   };
 
   const logout = () => {
+    toast.success('Logout successfull.');
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
     setUser(null);

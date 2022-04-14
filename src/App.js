@@ -8,6 +8,9 @@ import Signup from './pages/auth/Signup';
 import Profile from './pages/profile/Profile';
 import Checkout from './pages/checkout/Checkout';
 import SingleProduct from './pages/single-product/SingleProduct';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -24,6 +27,12 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Login />} />
       </Routes>
+      <ToastContainer
+        autoClose={3000}
+        draggablePercent={50}
+        style={{ fontSize: '1.5rem' }}
+        position={toast.POSITION.BOTTOM_RIGHT}
+      />
     </div>
   );
 }

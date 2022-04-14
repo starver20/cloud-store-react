@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const addToCartHandler = async (cartDispatch, navigate, product, isIncart) => {
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
@@ -15,6 +16,7 @@ const addToCartHandler = async (cartDispatch, navigate, product, isIncart) => {
     }
 
     if (response.status === 201) {
+      toast.success('Added to cart');
       cartDispatch({
         type: 'UPDATE_CART',
         payload: { cart: response.data.cart },
