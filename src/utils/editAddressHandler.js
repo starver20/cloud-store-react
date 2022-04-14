@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const editAddressHandler = async (addressDispatch, navigate, address) => {
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
@@ -11,6 +12,7 @@ const editAddressHandler = async (addressDispatch, navigate, address) => {
     console.log(response);
 
     if (response.status === 200) {
+      toast.success('Address updated.');
       addressDispatch({
         type: 'UPDATE_ADDRESS',
         payload: { address: response.data.address },

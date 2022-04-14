@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const deleteAddressHandler = async (addressDispatch, navigate, address) => {
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
@@ -10,6 +11,7 @@ const deleteAddressHandler = async (addressDispatch, navigate, address) => {
     console.log(response);
 
     if (response.status === 200) {
+      toast.warn('Address deleted successfully');
       addressDispatch({
         type: 'UPDATE_ADDRESS',
         payload: { address: response.data.address },

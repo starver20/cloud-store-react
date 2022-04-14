@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const removeFromCartHandler = async (cartDispatch, navigate, product) => {
   const jwt = localStorage.getItem('jwt');
@@ -12,6 +13,7 @@ const removeFromCartHandler = async (cartDispatch, navigate, product) => {
 
     console.log(response);
     if (response.status === 200) {
+      toast.success('Product removed from cart.');
       cartDispatch({
         type: 'UPDATE_CART',
         payload: { cart: response.data.cart },

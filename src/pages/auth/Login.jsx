@@ -7,6 +7,8 @@ import { useProducts } from '../../context/products/products-context';
 import { useCart } from '../../context/cart/cart-context';
 import { useNavigate } from 'react-router-dom';
 
+import { toast } from 'react-toastify';
+
 const Login = () => {
   const { login } = useAuth();
   const { productsDispatch } = useProducts();
@@ -52,6 +54,7 @@ const Login = () => {
 
       console.log(user.wishlist, user.cart);
       if (status === 200) {
+        toast.success('Login successfull.');
         productsDispatch({
           type: 'INITIALIZE_WISHLIST',
           payload: { wishlist: user.wishlist },
