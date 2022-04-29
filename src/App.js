@@ -9,22 +9,54 @@ import Profile from './pages/profile/Profile';
 import Checkout from './pages/checkout/Checkout';
 import SingleProduct from './pages/single-product/SingleProduct';
 import { ToastContainer, toast } from 'react-toastify';
+import RequiresAuth from './components/auth/RequiresAuth';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  let jwt = localStorage.getItem('jwt');
   return (
     <div className="MockAPI">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product-listing" element={<ProductListing />} />
         <Route path="/product/:productId" element={<SingleProduct />} />
-        <Route path="/wishlist" element={<WishList />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+
+        <Route
+          path="/wishlist"
+          element={
+            <RequiresAuth>
+              <WishList />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <RequiresAuth>
+              <Cart />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <RequiresAuth>
+              <Checkout />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <RequiresAuth>
+              <Profile />
+            </RequiresAuth>
+          }
+        />
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Login />} />
       </Routes>
       <ToastContainer

@@ -23,7 +23,7 @@ const ProductCard = (product) => {
   const { cartDispatch, cartProducts } = useCart();
   const { productsDispatch, wishlist } = useProducts();
 
-  const isWishlisted = wishlist.includes(product._id.toString());
+  const isWishlisted = wishlist.includes(product._id);
 
   const index = cartProducts.findIndex((item) => item._id === product._id);
 
@@ -77,7 +77,11 @@ const ProductCard = (product) => {
             ? 'ADDING...'
             : 'ADD TO CART'}
         </button>
-        <span onClick={!wishlistLoading && toggleWishlist} className="fav">
+        <button
+          onClick={toggleWishlist}
+          disabled={wishlistLoading}
+          className={`fav ${classes['fav-btn']}`}
+        >
           <svg
             className="w-6 h-6"
             fill={isWishlisted ? 'red' : 'none'}
@@ -92,7 +96,7 @@ const ProductCard = (product) => {
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             ></path>
           </svg>
-        </span>
+        </button>
       </div>
     </>
   );

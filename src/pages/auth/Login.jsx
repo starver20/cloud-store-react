@@ -1,11 +1,10 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import classes from './Auth.module.css';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth/auth-context';
 import { useProducts } from '../../context/products/products-context';
 import { useCart } from '../../context/cart/cart-context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
@@ -14,6 +13,9 @@ const Login = () => {
   const { productsDispatch } = useProducts();
   const { cartDispatch } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  let navigateTo = location.state?.from?.pathname || '/';
 
   const loginClickHandler = async (e) => {
     e.preventDefault();
@@ -36,7 +38,7 @@ const Login = () => {
           payload: { cart: user.cart },
         });
 
-        navigate('/');
+        navigate(navigateTo, { replace: true });
       } else {
         alert('Invalid email or password');
       }
@@ -65,7 +67,7 @@ const Login = () => {
           payload: { cart: user.cart },
         });
 
-        navigate('/');
+        navigate(navigateTo, { replace: true });
       } else {
         alert('Invalid email or password');
       }

@@ -32,6 +32,7 @@ const Navbar = ({ page = 'home' }) => {
         payload: { cart: [] },
       });
       logout();
+      return;
     }
     navigate('/login');
   };
@@ -115,7 +116,7 @@ const Navbar = ({ page = 'home' }) => {
               {jwt ? (
                 <>
                   <div className="nav-icon">
-                    <Link to={jwt ? '/wishlist' : '/login'}>
+                    <Link to={'/wishlist'}>
                       <svg
                         className="w-6 h-6"
                         fill="none"
@@ -138,7 +139,7 @@ const Navbar = ({ page = 'home' }) => {
                     </Link>
                   </div>
                   <div className="nav-icon">
-                    <Link to={jwt ? '/cart' : '/login'}>
+                    <Link to={'/cart'}>
                       <svg
                         className="w-6 h-6"
                         fill="none"

@@ -15,3 +15,7 @@
 .card {
   height: 72rem;
 }
+
+.fav-btn {
+  border: none;
+}

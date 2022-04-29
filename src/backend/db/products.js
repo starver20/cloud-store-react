@@ -23,7 +23,7 @@ import {
 
 export const products = [
   {
-    _id: uuid(),
+    _id: 1,
     title: 'Nets Statement Edition 2020',
     image: netsStatement,
     price: '1500',
@@ -34,7 +34,7 @@ export const products = [
     rating: 2,
   },
   {
-    _id: uuid(),
+    _id: 2,
     title: 'Boston Celtics City Edition',
     image: celticsCity,
     price: '3000',
@@ -45,7 +45,7 @@ export const products = [
     rating: 3,
   },
   {
-    _id: uuid(),
+    _id: 3,
     title: 'Philadelphia City Edition',
     image: philadelphiaCity,
     price: '2000',
@@ -56,7 +56,7 @@ export const products = [
     rating: 4,
   },
   {
-    _id: uuid(),
+    _id: 4,
     title: 'Dallas City Edition',
     image: dallasCity,
     price: '2500',
@@ -67,7 +67,7 @@ export const products = [
     rating: 5,
   },
   {
-    _id: uuid(),
+    _id: 5,
     title: 'Bucks City Edition',
     image: milwaukeeCity,
     price: '2800',
@@ -78,7 +78,7 @@ export const products = [
     rating: 3,
   },
   {
-    _id: uuid(),
+    _id: 6,
     title: 'Nets City Edition',
     image: brooklynCity,
     price: '3800',
@@ -89,7 +89,7 @@ export const products = [
     rating: 2,
   },
   {
-    _id: uuid(),
+    _id: 7,
     title: 'Pelicans City Edition',
     image: orleansCity,
     price: '4000',
@@ -100,7 +100,7 @@ export const products = [
     rating: 1,
   },
   {
-    _id: uuid(),
+    _id: 8,
     title: 'Lakers City Edition',
     image: lakersCity,
     price: '3200',
@@ -111,7 +111,7 @@ export const products = [
     rating: 4,
   },
   {
-    _id: uuid(),
+    _id: 9,
     title: 'Clippers City Edition',
     image: clippersCity,
     price: '2300',
@@ -122,7 +122,7 @@ export const products = [
     rating: 5,
   },
   {
-    _id: uuid(),
+    _id: 10,
     title: 'Lakers Icon Edition 2020',
     image: lakersIcon,
     price: '2600',
@@ -133,7 +133,7 @@ export const products = [
     rating: 4,
   },
   {
-    _id: uuid(),
+    _id: 11,
     title: 'Mavericks Icon Edition 2020',
     image: mavericksIcon,
     price: '1000',
@@ -144,7 +144,7 @@ export const products = [
     rating: 3,
   },
   {
-    _id: uuid(),
+    _id: 12,
     title: 'Clippers Icon Edition 2020',
     image: clippersIcon,
     price: '1900',
@@ -155,7 +155,7 @@ export const products = [
     rating: 4,
   },
   {
-    _id: uuid(),
+    _id: 13,
     title: 'Nets Icon Edition 2020',
     image: netsIcon,
     price: '2900',
@@ -166,7 +166,7 @@ export const products = [
     rating: 2,
   },
   {
-    _id: uuid(),
+    _id: 14,
     title: 'Bucks Icon Edition 2020',
     image: bucksIcon,
     price: '4500',

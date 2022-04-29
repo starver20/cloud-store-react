@@ -23,6 +23,7 @@
 }
 
 .fav {
+  border: none;
   position: absolute;
   background-color: white;
   border-radius: var(--radius-full);
