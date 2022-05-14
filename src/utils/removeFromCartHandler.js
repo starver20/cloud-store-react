@@ -3,7 +3,8 @@ import { toast } from 'react-toastify';
 
 const removeFromCartHandler = async (cartDispatch, navigate, product) => {
   const jwt = localStorage.getItem('jwt');
-  console.log(jwt);
+  // console.log(jwt);
+  // console.log(product);
   if (jwt) {
     let response = await axios.delete(
       `/api/user/cart/${product._id}`,
@@ -11,7 +12,7 @@ const removeFromCartHandler = async (cartDispatch, navigate, product) => {
       { headers: { authorization: jwt } }
     );
 
-    console.log(response);
+    // console.log(response);
     if (response.status === 200) {
       toast.success('Product removed from cart.');
       cartDispatch({

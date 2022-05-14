@@ -49,7 +49,7 @@ const CartCard = (product) => {
   const { loading: removeFromCartLoading, callAsyncFunction: removeFromCart } =
     useAPI(removeFromCartHandler, cartDispatch, product);
 
-  const isWishlisted = wishlist.includes(product._id.toString());
+  const isWishlisted = wishlist.includes(product._id);
 
   const { loading: wishlistLoading, callAsyncFunction: toggleWishlist } =
     useAPI(wishlistClickHandler, productsDispatch, product, isWishlisted);
