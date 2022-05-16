@@ -132,7 +132,7 @@ const FilterSidebar = () => {
         </div>
         <div className={classes['filter-type']}>
           <h2 className={classes['filter-type-title']}>Categories</h2>
-          <div className="inp-container">
+          {/* <div className="inp-container">
             <input
               onChange={categoryChangeHandler}
               type="checkbox"
@@ -142,7 +142,7 @@ const FilterSidebar = () => {
               checked={categoryName.includes('Statement Edition')}
             />
             <label htmlFor="statement-edition">Statement Edition</label>
-          </div>
+          </div> */}
           <div className="inp-container">
             <input
               onChange={categoryChangeHandler}

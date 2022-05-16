@@ -23,17 +23,6 @@ import {
 
 export const products = [
   {
-    _id: 1,
-    title: 'Nets Statement Edition 2020',
-    image: netsStatement,
-    price: '1500',
-    categoryName: 'Statement Edition',
-    itemDescription: 'Jordan NBA Swingman Jersey',
-    inStock: true,
-    fastDelivery: true,
-    rating: 2,
-  },
-  {
     _id: 2,
     title: 'Boston Celtics City Edition',
     image: celticsCity,

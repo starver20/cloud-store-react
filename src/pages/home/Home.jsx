@@ -2,11 +2,20 @@ import React from 'react';
 import classes from './Home.module.css';
 import Navbar from '../../components/navbar/Navbar';
 import { Link } from 'react-router-dom';
-import jerseyImg from '../../assets/jersey.jpeg';
-import shoeImg from '../../assets/shoe.jpg';
+import { celticsCity, lakersIcon } from '../../assets';
 import heroImg from '../../assets/kobe-ad.jpg';
+import { useProducts } from '../../context/products/products-context';
 
 const Home = () => {
+  const { productsDispatch } = useProducts();
+
+  const categoryChangeHandler = (category) => {
+    productsDispatch({
+      type: 'HOME_CATEGORY_CHANGE',
+      payload: { categoryName: category },
+    });
+  };
+
   return (
     <>
       <Navbar auth="login" />
@@ -66,33 +75,42 @@ const Home = () => {
           <p className={classes['tagline']}>ALL THINGS BASKETBALL.</p>
         </div>
         <div className={classes['category']}>
-          <Link to="/product-listing" className={classes['category-shoe-link']}>
+          <Link
+            onClick={() => {
+              categoryChangeHandler('Icon Edition');
+            }}
+            to="/product-listing"
+            className={classes['category-shoe-link']}
+          >
             <div
               className={classes['category-shoe']}
               style={{
-                backgroundImage: `url(${shoeImg})`,
+                backgroundImage: `url(${lakersIcon})`,
               }}
             ></div>
             <p
               className={`${classes['category-shoe-title']} ${classes['category-title']}`}
             >
-              AIR JORDAN SERIES
+              Icon Edition
             </p>
           </Link>
           <Link
+            onClick={() => {
+              categoryChangeHandler('City Edition');
+            }}
             to="/product-listing"
             className={classes['category-jersey-link']}
           >
             <div
               className={classes['category-jersey']}
               style={{
-                backgroundImage: `url(${jerseyImg})`,
+                backgroundImage: `url(${celticsCity})`,
               }}
             ></div>
             <p
               className={`${classes['category-jersey-title']} ${classes['category-title']}`}
             >
-              JERSEY AND KITS
+              City Edition
             </p>
           </Link>
         </div>
