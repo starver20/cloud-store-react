@@ -42,7 +42,6 @@ const FilterSidebar = () => {
   };
 
   const deliveryTypeToggleHandler = (e) => {
-    console.log(e.target.checked);
     productsDispatch({
       type: 'DELIVERY_TYPE',
       payload: { fastDelivery: e.target.checked },

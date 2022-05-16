@@ -10,8 +10,6 @@ const editAddressHandler = async (addressDispatch, navigate, address) => {
         { headers: { authorization: jwt } }
       );
 
-      console.log(response);
-
       if (response.status === 200) {
         toast.success('Address updated.');
         addressDispatch({

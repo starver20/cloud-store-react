@@ -10,8 +10,6 @@ const addAddressHandler = async (addressDispatch, navigate, address) => {
         { headers: { authorization: jwt } }
       );
 
-      console.log(response);
-
       if (response.status === 201) {
         toast.success('Address Added successfully');
         addressDispatch({

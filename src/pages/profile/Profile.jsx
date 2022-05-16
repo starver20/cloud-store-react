@@ -21,7 +21,6 @@ const Profile = () => {
   );
 
   const addressChangeHandler = (e) => {
-    console.log(e.target.value);
     setCurrentAddress((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -38,7 +37,6 @@ const Profile = () => {
   };
 
   const editClickHandler = (address) => {
-    console.log('Edit Handler');
     setCurrentAddress(address);
     setIsEditing(true);
     toggleAddressModal();

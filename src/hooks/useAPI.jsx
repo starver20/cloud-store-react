@@ -12,9 +12,7 @@ const useAPI = (asyncFunction, dispatch, payload, check) => {
       await asyncFunction(dispatch, navigate, payload, check);
       setLoading(false);
     } catch (err) {
-      console.log(err);
-      toast.error(err.msg);
-      alert(err);
+      toast.error('Task failed');
     }
   };
 

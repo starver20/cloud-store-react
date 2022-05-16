@@ -8,8 +8,6 @@ const deleteCartHandler = async (cartDispatch, navigate) => {
         headers: { authorization: jwt },
       });
 
-      console.log(response);
-
       if (response.status === 200) {
         toast.success('Cart emptied.');
         cartDispatch({

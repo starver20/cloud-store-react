@@ -11,8 +11,6 @@ const itemQuantityChangeHandler = async (cartDispatch, navigate, product) => {
         { headers: { authorization: jwt } }
       );
 
-      console.log(response);
-
       response.status === 200 &&
         cartDispatch({
           type: 'UPDATE_CART',
