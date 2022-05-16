@@ -16,7 +16,9 @@ const Profile = () => {
   const [curentAddress, setCurrentAddress] = useState({});
   const [active, setActive] = useState('profile');
   const [initials, setinitials] = useState(getInitials());
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem('user')).user
+  );
 
   const addressChangeHandler = (e) => {
     console.log(e.target.value);
@@ -106,7 +108,7 @@ const Profile = () => {
             <p>Manage Address</p>
           </div>
         </aside>
-        <main>
+        <main className={classes.main}>
           <div>
             <div className={classes.banner}>
               <div className={classes.hero}>

@@ -33,6 +33,7 @@ const AddressModal = ({
             Name
           </label>
           <input
+            required
             onChange={(e) => addressChangeHandler(e)}
             value={name}
             id="name"
@@ -46,6 +47,7 @@ const AddressModal = ({
             Building
           </label>
           <input
+            required
             onChange={(e) => addressChangeHandler(e)}
             value={building}
             id="building"
@@ -59,6 +61,7 @@ const AddressModal = ({
             City
           </label>
           <input
+            required
             onChange={(e) => addressChangeHandler(e)}
             value={city}
             id="city"
@@ -72,6 +75,7 @@ const AddressModal = ({
             State
           </label>
           <input
+            required
             onChange={(e) => addressChangeHandler(e)}
             value={state}
             id="state"
@@ -85,11 +89,12 @@ const AddressModal = ({
             Pincode
           </label>
           <input
+            required
             onChange={(e) => addressChangeHandler(e)}
             value={pincode}
             id="pincode"
             class="inp"
-            type="text"
+            type="number"
             placeholder="Enter Pincode"
           />
         </div>
@@ -98,11 +103,12 @@ const AddressModal = ({
             Mobile
           </label>
           <input
+            required
             onChange={(e) => addressChangeHandler(e)}
             value={mobile}
             id="mobile"
             class="inp"
-            type="text"
+            type="number"
             placeholder="Enter Mobile"
           />
         </div>

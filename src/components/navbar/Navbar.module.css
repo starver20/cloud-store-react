@@ -53,6 +53,15 @@
   cursor: pointer;
 }
 
-.not-found {
+.search-msg {
   font-size: var(--body-2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo svg {
+  min-width: 3rem;
 }

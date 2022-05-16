@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import jerseyImg from '../../assets/jersey.jpeg';
 import shoeImg from '../../assets/shoe.jpg';
 import heroImg from '../../assets/kobe-ad.jpg';
-import useHttp from '../../hooks/useHttp';
 
 const Home = () => {
   return (

@@ -1,6 +1,4 @@
 const filterSearchProducts = (products = [], searchTerm = '') => {
-  console.log(searchTerm);
-  console.log(products);
   if (searchTerm === '') return [];
 
   return products.filter((product) => {

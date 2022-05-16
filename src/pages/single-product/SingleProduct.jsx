@@ -17,7 +17,7 @@ const SingleProduct = () => {
   useEffect(async () => {
     const response = await axios.get(`/api/products/${productId}`);
     setProduct(response.data.product);
-  }, []);
+  }, [productId]);
 
   const { cartDispatch, cartProducts } = useCart();
   const { productsDispatch, wishlist } = useProducts();
