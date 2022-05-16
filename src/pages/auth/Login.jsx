@@ -5,7 +5,6 @@ import { useAuth } from '../../context/auth/auth-context';
 import { useProducts } from '../../context/products/products-context';
 import { useCart } from '../../context/cart/cart-context';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-
 import { toast } from 'react-toastify';
 
 const Login = () => {
@@ -25,9 +24,7 @@ const Login = () => {
         password: e.target.password.value,
       });
 
-      console.log(user.wishlist, user.cart);
-
-      if (status === 200) {
+      if (status == 200) {
         productsDispatch({
           type: 'INITIALIZE_WISHLIST',
           payload: { wishlist: user.wishlist },
@@ -39,11 +36,12 @@ const Login = () => {
         });
 
         navigate(navigateTo, { replace: true });
+        toast.success('Login successful');
       } else {
-        alert('Invalid email or password');
+        toast.error('Invalid email or password');
       }
     } catch (err) {
-      alert(err);
+      toast.error(err);
     }
   };
 
@@ -54,7 +52,6 @@ const Login = () => {
         password: 'adarshBalika123',
       });
 
-      console.log(user.wishlist, user.cart);
       if (status === 200) {
         toast.success('Login successfull.');
         productsDispatch({
@@ -84,6 +81,7 @@ const Login = () => {
           <h1>CloudStore</h1>
           <h3>Login</h3>
           <input
+            required
             className={classes['creds']}
             type="text"
             name="email"
@@ -91,6 +89,7 @@ const Login = () => {
             placeholder="Email address"
           />
           <input
+            required
             className={classes['creds']}
             type="password"
             name="password"

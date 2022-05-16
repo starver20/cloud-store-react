@@ -17,16 +17,13 @@ const SingleProduct = () => {
   useEffect(async () => {
     const response = await axios.get(`/api/products/${productId}`);
     setProduct(response.data.product);
-  }, []);
+  }, [productId]);
 
   const { cartDispatch, cartProducts } = useCart();
   const { productsDispatch, wishlist } = useProducts();
 
   const isWishlisted = wishlist.includes(parseInt(productId));
-
-  const index = cartProducts.findIndex((item) => item._id === productId);
-
-  const isAddedToCart = index === -1 ? false : true;
+  const isAddedToCart = cartProducts.some((item) => item._id == productId);
 
   const { loading: addToCartLoading, callAsyncFunction: addToCart } = useAPI(
     addToCartHandler,

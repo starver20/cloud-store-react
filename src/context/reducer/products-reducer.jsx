@@ -37,6 +37,13 @@ const productsReducer = (state, action) => {
       };
     }
 
+    case 'HOME_CATEGORY_CHANGE': {
+      return {
+        ...state,
+        categoryName: [action.payload.categoryName],
+      };
+    }
+
     case 'AVAILABILITY_TOGGLE': {
       return {
         ...state,
