@@ -1,7 +1,8 @@
 const getInitials = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  let initials =
-    user?.user?.firstName.slice(0, 1) + user?.user?.lastName.slice(0, 1);
+  console.log(user);
+  let initials = user?.firstName.slice(0, 1) + user?.lastName.slice(0, 1);
+  console.log(initials);
   return initials;
 };
 
