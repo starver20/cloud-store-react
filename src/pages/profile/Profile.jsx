@@ -16,9 +16,7 @@ const Profile = () => {
   const [curentAddress, setCurrentAddress] = useState({});
   const [active, setActive] = useState('profile');
   const [initials, setinitials] = useState(getInitials());
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem('user')).user
-  );
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
   const addressChangeHandler = (e) => {
     setCurrentAddress((prevState) => ({
