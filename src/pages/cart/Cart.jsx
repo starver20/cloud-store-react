@@ -9,8 +9,6 @@ const Cart = () => {
 
   const { totalItems, totalPrice } = cartProducts.reduce(
     (acc, cur) => {
-      console.log(cur.price, cur.qty);
-      console.log(cur.price * cur.qty);
       return {
         totalItems: acc.totalItems + cur.qty,
         totalPrice: acc.totalPrice + cur.qty * cur.price,

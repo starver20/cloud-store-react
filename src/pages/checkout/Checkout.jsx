@@ -19,8 +19,6 @@ const Checkout = () => {
 
   const { totalItems, totalPrice } = cartProducts.reduce(
     (acc, cur) => {
-      console.log(cur.price, cur.qty);
-      console.log(cur.price * cur.qty);
       return {
         totalItems: acc.totalItems + cur.qty,
         totalPrice: acc.totalPrice + cur.qty * cur.price,
@@ -32,10 +30,7 @@ const Checkout = () => {
     }
   );
 
-  console.log(orderAddress);
-
   const addressChangeHandler = (e) => {
-    console.log(e.target.value);
     setCurrentAddress((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -52,7 +47,6 @@ const Checkout = () => {
   };
 
   const editClickHandler = (address) => {
-    console.log('Edit Handler');
     setCurrentAddress(address);
     setIsEditing(true);
     toggleAddressModal();
@@ -101,7 +95,6 @@ const Checkout = () => {
                           className={classes['address-input']}
                           checked={orderAddress._id === _id}
                           onClick={() => {
-                            console.log('amar');
                             cartDispatch({
                               type: 'UPDATE_ORDER_ADDRESS',
                               payload: {
@@ -163,7 +156,7 @@ const Checkout = () => {
               cartTotalItems={totalItems}
               cartTotalPrice={totalPrice}
               type="address"
-              curentAddress={curentAddress}
+              orderAddress={orderAddress}
             />
           </aside>
         ) : null}
@@ -175,8 +168,8 @@ const Checkout = () => {
           addAddress={addAddress}
           editAddress={editAddress}
           deleteAddress={deleteAddress}
+          isEditing={false}
           curentAddress={curentAddress}
-          isEditing={isEditing}
           setCurrentAddress={setCurrentAddress}
         />
       )}

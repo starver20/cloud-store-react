@@ -11,6 +11,7 @@ const initialState = {
   priceRange: 5000,
   ratingRange: 1,
   categoryName: [],
+  searchTerm: '',
   productsDispatch: () => {},
 };
 
@@ -38,7 +39,7 @@ const ProductsProvider = ({ children }) => {
   };
 
   // Imp console.log, please ignore.
-  console.log('This runs everytime, so can put all filter functions here');
+  // console.log('This runs everytime, so can put all filter functions here');
 
   return (
     <ProductsContext.Provider value={value}>

@@ -25,11 +25,11 @@ const WishList = () => {
         <main>
           <div className={classes['prod-listing']}>
             {products === null ? (
-              <h1>Loading...</h1>
+              <h1 className={classes.msg}>Loading...</h1>
             ) : wishlistProducts.length > 0 ? (
               wishlistProducts.map((product) => <ProductCard {...product} />)
             ) : (
-              <h1>Your wishlist is empty!(sadder)</h1>
+              <h1 className={classes.msg}>Your wishlist is empty!(sadder)</h1>
             )}
           </div>
         </main>

@@ -23,7 +23,6 @@ const CartCard = (product) => {
 
   // How to send e.target.name through useAPI?
   const itemQuantityChangeHandler = async (e) => {
-    console.log(quantity);
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       let response = await axios.post(
@@ -33,8 +32,6 @@ const CartCard = (product) => {
 
         { headers: { authorization: jwt } }
       );
-
-      console.log(response);
 
       response.status === 200 &&
         cartDispatch({
@@ -49,7 +46,7 @@ const CartCard = (product) => {
   const { loading: removeFromCartLoading, callAsyncFunction: removeFromCart } =
     useAPI(removeFromCartHandler, cartDispatch, product);
 
-  const isWishlisted = wishlist.includes(product._id.toString());
+  const isWishlisted = wishlist.includes(product._id);
 
   const { loading: wishlistLoading, callAsyncFunction: toggleWishlist } =
     useAPI(wishlistClickHandler, productsDispatch, product, isWishlisted);

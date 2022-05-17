@@ -33,9 +33,3 @@
   font-size: var(--body-2);
   font-weight: 400;
 }
-
-@media (max-width: 1200px) {
-  .filters {
-    display: none;
-  }
-}

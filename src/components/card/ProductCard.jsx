@@ -6,6 +6,7 @@ import { clippersCity } from '../../assets/index';
 import useAPI from '../../hooks/useAPI';
 import addToCartHandler from '../../utils/addToCartHandler';
 import wishlistClickHandler from '../../utils/wishlistClickHandler';
+import { Link } from 'react-router-dom';
 
 const ProductCard = (product) => {
   // Cart related functions
@@ -22,7 +23,7 @@ const ProductCard = (product) => {
   const { cartDispatch, cartProducts } = useCart();
   const { productsDispatch, wishlist } = useProducts();
 
-  const isWishlisted = wishlist.includes(product._id.toString());
+  const isWishlisted = wishlist.includes(product._id);
 
   const index = cartProducts.findIndex((item) => item._id === product._id);
 
@@ -41,12 +42,14 @@ const ProductCard = (product) => {
   return (
     <>
       <div className={`prod-card ${classes.card}`}>
-        <div
-          className="prod-img"
-          style={{
-            backgroundImage: `url(${image})`,
-          }}
-        ></div>
+        <Link to={`/product/${product._id}`}>
+          <div
+            className="prod-img"
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          ></div>
+        </Link>
         <div className="prod-details">
           <h4 className="prod-name">{title}</h4>
           <p className="prod-info">{itemDescription}</p>
@@ -74,7 +77,11 @@ const ProductCard = (product) => {
             ? 'ADDING...'
             : 'ADD TO CART'}
         </button>
-        <span onClick={!wishlistLoading && toggleWishlist} className="fav">
+        <button
+          onClick={toggleWishlist}
+          disabled={wishlistLoading}
+          className={`fav ${classes['fav-btn']}`}
+        >
           <svg
             className="w-6 h-6"
             fill={isWishlisted ? 'red' : 'none'}
@@ -89,7 +96,7 @@ const ProductCard = (product) => {
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             ></path>
           </svg>
-        </span>
+        </button>
       </div>
     </>
   );

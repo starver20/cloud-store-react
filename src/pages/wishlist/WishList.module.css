@@ -10,6 +10,10 @@
   padding: 5rem 2rem;
 }
 
+.msg {
+  text-align: center;
+}
+
 .prod-listing {
   display: grid;
   gap: 2rem;

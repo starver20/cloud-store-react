@@ -10,7 +10,7 @@ const CheckoutCard = ({
   cartTotalItems,
   cartTotalPrice,
   type,
-  currentAddress,
+  orderAddress,
 }) => {
   const buttonName = type === 'cart' ? 'PLACE ORDER' : 'PAY SECURELY';
 
@@ -43,6 +43,11 @@ const CheckoutCard = ({
       return;
     }
 
+    if (Object.keys(orderAddress).length === 0) {
+      alert('Select a address');
+      return;
+    }
+
     const response = await loadScript(
       'https://checkout.razorpay.com/v1/checkout.js'
     );
@@ -61,7 +66,7 @@ const CheckoutCard = ({
         cartDispatch({
           type: 'UPDATE_ORDER',
           payload: {
-            order: { products: cartProducts, address: currentAddress },
+            order: { products: cartProducts, address: orderAddress },
           },
         });
         navigate('/');

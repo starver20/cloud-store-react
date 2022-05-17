@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/cart/cart-context';
 import { useProducts } from '../../context/products/products-context';
 import { useAuth } from '../../context/auth/auth-context';
 import { useNavigate } from 'react-router-dom';
 import classes from './Navbar.module.css';
+import filterSearchProducts from '../../utils/filterSearchProducts';
 
-const Navbar = ({ page = 'home' }) => {
+const Navbar = ({ page = 'home', isListing = false, toggleSidebar }) => {
+  const [searchProducts, setSearchProducts] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
   const { cartDispatch, cartProducts } = useCart();
-  const { wishlist, productsDispatch } = useProducts();
+  const { wishlist, productsDispatch, products } = useProducts();
   const { logout } = useAuth();
 
   const navigate = useNavigate();
@@ -29,26 +34,141 @@ const Navbar = ({ page = 'home' }) => {
         payload: { cart: [] },
       });
       logout();
+      return;
     }
     navigate('/login');
   };
+
+  const productClickHandler = (id) => {
+    setSearchProducts([]);
+    setSearchTerm('');
+    productsDispatch({
+      type: 'UPDATE_SEARCH_TERM',
+      payload: { searchTerm: '' },
+    });
+
+    navigate(`/product/${id}`);
+  };
+
+  const searchTermChangeHandler = (e) => {
+    if (e.target.value === '') setSearchLoading(false);
+    setSearchTerm(e.target.value);
+  };
+
+  useEffect(() => {
+    setSearchLoading(true);
+    let timeoutId = setTimeout(() => {
+      // call the function to filter products
+      let searchResult = filterSearchProducts(products, searchTerm);
+      if (searchResult === null) {
+        setSearchProducts([]);
+      } else {
+        setSearchProducts(searchResult);
+      }
+      setSearchLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+      setSearchProducts([]);
+    };
+  }, [searchTerm]);
 
   return (
     <>
       <header className="header">
         <nav className="navbar">
-          <Link to={'/'} className="nav-logo">
-            CloudStore
-          </Link>
+          <div className={classes.logo}>
+            {isListing ? (
+              <svg
+                onClick={toggleSidebar}
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            ) : (
+              ''
+            )}
+            <Link to={'/'} className="nav-logo">
+              CloudStore
+            </Link>
+          </div>
           <div className="nav-search">
-            <input type="text" name="search" id="search" placeholder="Search" />
+            <div className={classes.search}>
+              <input
+                value={searchTerm}
+                onChange={searchTermChangeHandler}
+                type="text"
+                name="search"
+                id="search"
+                placeholder="Search"
+              />
+            </div>
+            {/* {searchLoading ? (
+              <div className={classes['search-list']}>
+                <p className={classes['search-msg']}>Loading...</p>
+              </div>
+            ) : */}
+            {searchProducts.length > 0 || searchTerm !== '' ? (
+              <div className={classes['search-list']}>
+                <ul>
+                  {searchLoading ? (
+                    <p className={classes['search-msg']}>Loading...</p>
+                  ) : (
+                    <>
+                      {searchProducts.length === 0 ? (
+                        <p className={classes['search-msg']}>
+                          No matching products found.
+                        </p>
+                      ) : (
+                        searchProducts.map((product) => (
+                          <li
+                            key={product.id}
+                            onClick={() => {
+                              productClickHandler(product._id);
+                            }}
+                            className={classes.product}
+                          >
+                            {product.title}
+                          </li>
+                        ))
+                      )}
+                    </>
+                  )}
+                </ul>
+              </div>
+            ) : null}
           </div>
           <div className="nav-action-container">
             <div className="nav-action">
               {jwt ? (
                 <>
                   <div className="nav-icon">
-                    <Link to={jwt ? '/wishlist' : '/login'}>
+                    <Link to={'/product-listing'}>
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
+                          clipRule="evenodd"
+                          strokeWidth="1"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
+                  <div className="nav-icon">
+                    <Link to={'/wishlist'}>
                       <svg
                         className="w-6 h-6"
                         fill="none"
@@ -71,7 +191,7 @@ const Navbar = ({ page = 'home' }) => {
                     </Link>
                   </div>
                   <div className="nav-icon">
-                    <Link to={jwt ? '/cart' : '/login'}>
+                    <Link to={'/cart'}>
                       <svg
                         className="w-6 h-6"
                         fill="none"

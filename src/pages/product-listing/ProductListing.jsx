@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import FilterSidebar from '../../components/sidebar/FilterSidebar';
 import classes from './ProductListing.module.css';
@@ -84,33 +84,32 @@ const ProductListing = () => {
     products = applyFilters(data);
   }
 
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const toggleSidebar = () => {
+    setShowSidebar((prevState) => !prevState);
+  };
+
   return (
     <div>
-      <Navbar />
+      <Navbar isListing={true} toggleSidebar={toggleSidebar} />
       <section className={classes['main-content']}>
-        <aside>
+        <aside
+          className={`${classes.sidebar} ${showSidebar ? classes.active : ''}`}
+        >
           <FilterSidebar />
         </aside>
         <main>
-          <div className={classes['filter-toggle']}>
-            <svg
-              className="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </div>
+          <p className={classes.count}>
+            {products?.length} of {data?.length} products
+          </p>
           <div className={classes['prod-listing']}>
             {data === null ? (
               <h1>Loading...</h1>
             ) : products.length > 0 ? (
-              products.map((product) => <ProductCard {...product} />)
+              products.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))
             ) : (
               <h1>
                 No products match the filters, try changing the filters to see

@@ -37,6 +37,13 @@ const productsReducer = (state, action) => {
       };
     }
 
+    case 'HOME_CATEGORY_CHANGE': {
+      return {
+        ...state,
+        categoryName: [action.payload.categoryName],
+      };
+    }
+
     case 'AVAILABILITY_TOGGLE': {
       return {
         ...state,
@@ -92,6 +99,10 @@ const productsReducer = (state, action) => {
         ...state,
         wishlist: updatedWishlist,
       };
+    }
+
+    case 'UPDATE_SEARCH_TERM': {
+      return { ...state, searchTerm: action.payload.searchTerm };
     }
 
     case 'CLEAR': {

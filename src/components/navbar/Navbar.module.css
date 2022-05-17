@@ -27,3 +27,41 @@
   font-size: var(--body-3);
   width: 100%;
 }
+
+.search-list {
+  position: absolute;
+  margin: 0 auto;
+  background-color: white;
+  max-height: 30rem;
+  overflow-y: auto;
+  width: 100%;
+  top: 4rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: var(--radius-3);
+}
+
+.search-list > ul > li {
+  list-style: none;
+}
+.search-list > ul > li:hover {
+  background-color: var(--grey-light-color);
+}
+
+.product {
+  font-size: var(--body-2);
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.search-msg {
+  font-size: var(--body-2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo svg {
+  min-width: 3rem;
+}

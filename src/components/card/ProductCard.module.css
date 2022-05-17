@@ -4,14 +4,18 @@
   align-items: center;
 }
 
-.prod-ratings svg {
-  width: 3rem;
-}
-
 .prod-ratings span {
   font-size: var(--body-1);
 }
 
+.prod-ratings svg {
+  width: 3rem;
+}
+
 .card {
   height: 72rem;
+}
+
+.fav-btn {
+  border: none;
 }

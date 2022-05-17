@@ -71,7 +71,9 @@ export const addItemToCartHandler = function (schema, request) {
  * */
 
 export const removeItemFromCartHandler = function (schema, request) {
+  console.log('Hello');
   const userId = requiresAuth.call(this, request);
+  console.log(userId);
   try {
     if (!userId) {
       new Response(
@@ -83,8 +85,11 @@ export const removeItemFromCartHandler = function (schema, request) {
       );
     }
     let userCart = schema.users.findBy({ _id: userId }).cart;
+    console.log(userCart, 'usercart');
     const productId = request.params.productId;
-    userCart = userCart.filter((item) => item._id !== productId);
+    console.log(productId, 'prodId');
+    userCart = userCart.filter((item) => item._id != productId);
+    console.log(userCart, 'updated cart');
     this.db.users.update({ _id: userId }, { cart: userCart });
     return new Response(200, {}, { cart: userCart });
   } catch (error) {
@@ -119,18 +124,18 @@ export const updateCartItemHandler = function (schema, request) {
     }
     const userCart = schema.users.findBy({ _id: userId }).cart;
     const { action } = JSON.parse(request.requestBody);
-    if (action.type === 'increment') {
+    if (action.type == 'increment') {
       userCart.forEach((product) => {
-        if (product._id === productId) {
+        if (product._id == productId) {
           product.qty += 1;
           product.updatedAt = formatDate();
         }
       });
-    } else if (action.type === 'decrement') {
+    } else if (action.type == 'decrement') {
       userCart.forEach((product) => {
-        if (product._id === productId) {
+        if (product._id == productId) {
           // Dont decrement if quantity is 1
-          if (product.qty !== 1) {
+          if (product.qty != 1) {
             product.qty -= 1;
             product.updatedAt = formatDate();
           }

@@ -4,6 +4,7 @@ import classes from './Auth.module.css';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth/auth-context';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const { signup } = useAuth();
@@ -20,9 +21,12 @@ const Signup = () => {
         lastName: e.target.lastname.value,
       });
 
-      status === 201 && navigate('/');
+      if (status === 201) {
+        toast.success('Signup Successful');
+        navigate('/');
+      }
     } catch (err) {
-      alert(err);
+      toast.error('Signup failed');
     }
   };
 
